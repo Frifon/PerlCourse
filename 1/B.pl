@@ -1,0 +1,1 @@
+$row = 1; while (<>) {chomp $_; @cells = split(':'); for ($i = 1; $i <= @cells; $i++) {if ($cells[$i - 1] > 10) {print "row: $row column: $i\n"}} $row++;}

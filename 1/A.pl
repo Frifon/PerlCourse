@@ -1,0 +1,1 @@
+$all = 0; $big = 0; while (<>) {$all++; @arr = split(" "); if (@arr[4] > 1024 * 1024) {$big++; print "name: @arr[8] size: @arr[4]\n";}} print "files: $all\n> then 1M: $big\n"
