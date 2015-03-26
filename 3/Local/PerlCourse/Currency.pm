@@ -40,13 +40,6 @@ sub check_name
             and exists($currency{$values[2]}));
 }
 
-sub convert
-{
-    our %currency;
-    my ($from, $to, $value) = @_;
-    return +$value / $currency{$from} * $currency{$to};
-}
-
 sub make_function
 {
     my ($name, $from, $to) = @_;
