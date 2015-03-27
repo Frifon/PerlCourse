@@ -3,7 +3,8 @@ package Local::PerlCourse::Homework;
 use strict;
 use warnings;
 use Exporter 'import';
-our @EXPORT_OK = qw(homework2_calc homework2_poland);
+use feature "switch";
+our @EXPORT_OK = qw(homework2_calc homework2_poland homework2_xml);
 
 sub balanced
 {
@@ -21,96 +22,214 @@ sub homework2_calc
 {
     chomp(my $expression = join('', split(' ', shift)));
     return $expression unless +grep {index($expression, $_) != -1} split (//, '+-*()');
-    if (substr($expression, 0, 1) eq '(' and balanced(substr($expression, 1, length($expression) - 2)))
+    my ($current, $sign, $balance, $result, $last, $index) = (1, 1, 0, 0, 0, 0);
+    for (split //, $expression.'_')
     {
-        return homework2_calc(substr($expression, 1, length($expression) - 2));
+        $balance += $_ eq '(' ? 1 : $_ eq ')' ? -1 : 0;
+        if (!$balance and ($_ eq '+' or $_ eq '*' or $_ eq '-' or $_ eq '_'))
+        {
+            last if ($_ eq '_' and !$last);
+            $current *= homework2_calc(substr($expression, $last, $index - $last));
+            $result += $sign * $current, $current = 1 if (!($_ eq '*'));
+            $sign = $_ eq '+' ? 1 : $_ eq '-' ? -1 : $sign;
+            $last = $index + 1;
+        }
+        $index++;
     }
-    my ($sign, $calculated, $balance, $result, $current_expression) = (1);
-    for (split //, $expression)
-    {
-        $balance++ if ($_ eq '(');
-        $balance-- if ($_ eq ')');
-        if (($_ eq '+' or $_ eq '-') and !$balance)
-        {
-            $calculated = 1;
-            $result += $sign * homework2_calc($current_expression);
-            $current_expression = '';
-            $sign = 1 if ($_ eq '+');
-            $sign = -1 if ($_ eq '-');
-        }
-        else
-        {
-            $current_expression .=  $_;
-        }
-    }
-    $result += $sign * homework2_calc($current_expression) if ($current_expression and $calculated);
-    return $result if $calculated;
-
-    ($balance, $result, $current_expression) = (0, 1, '');
-    for (split //, $expression)
-    {
-        $balance++ if ($_ eq '(');
-        $balance-- if ($_ eq ')');
-        if ($_ eq '*' and !$balance)
-        {
-            $result *= homework2_calc($current_expression);
-            $current_expression = '';
-        }
-        else
-        {
-            $current_expression .=  $_;
-        }
-    }
-    $result *= homework2_calc($current_expression) if $current_expression;
-    return $result;
+    return $result = $last == 0 ? homework2_calc(substr($expression, 1, length($expression) - 2)) : $result;
 }
 
 sub homework2_poland
 {
     chomp(my $expression = join('', split(' ', shift)));
     return $expression.' ' unless +grep {index($expression, $_) != -1} split (//, '+-*()');
-    if (substr($expression, 0, 1) eq '(' and balanced(substr($expression, 1, length($expression) - 2)))
+    my ($balance, $result, $last, $index) = (0, '', 0, 0);
+    for (split //, $expression.'_')
     {
-        return homework2_poland(substr($expression, 1, length($expression) - 2));
-    }
-    my ($calculated, $balance, $current_expression, $notation);
-    for (split //, $expression)
-    {
-        $balance++ if ($_ eq '(');
-        $balance-- if ($_ eq ')');
-        if (($_ eq '+' or $_ eq '-') and !$balance)
+        $balance += $_ eq '(' ? 1 : $_ eq ')' ? -1 : 0;
+        if (!$balance and ($_ eq '+' or $_ eq '*' or $_ eq '-' or $_ eq '_'))
         {
-            $notation .= $_ eq '+' ? '+ ' : '- ';
-            $calculated = 1;
-            $notation .= homework2_poland($current_expression);
-            $current_expression = '';
+            last if ($_ eq '_' and !$last);
+            $result .= $_.' ' if (!($_ eq '_'));
+            $result .= homework2_poland(substr($expression, $last, $index - $last));
+            $last = $index + 1;
         }
-        else
-        {
-            $current_expression .=  $_;
-        }
+        $index++;
     }
-    $notation .= homework2_poland($current_expression) if ($current_expression and $calculated);
-    return $notation if $calculated;
+    return $result = $last == 0 ? homework2_poland(substr($expression, 1, length($expression) - 2)) : $result;
+}
 
-    ($balance, $current_expression) = (0, ''); ##### rem nota
-    for (split //, $expression)
+sub trim
+{
+    my $ans = "";
+    my $started = 0;
+    for (split(//, shift))
     {
-        $balance++ if ($_ eq '(');
-        $balance-- if ($_ eq ')');
-        if ($_ eq '*' and !$balance)
+        if ($started or !($_ eq ' '))
         {
-            $notation .= '* ';
-            $notation .= homework2_poland($current_expression);
-            $current_expression = '';
-        }
-        else
-        {
-            $current_expression .=  $_;
+            $ans .= $_;
+            $started = 1;
         }
     }
-    $notation .= homework2_poland($current_expression) if ($current_expression);
-    return $notation;
+    return $ans;
+}
+
+sub homework2_xml
+{
+    my $curhash = {
+        name => "",
+        backref => undef,
+        refs => [],
+        data => "",
+        attrs => {}
+    };
+
+    my $state = "Read";
+    my $tmpname = "";
+    my $tmpval = "";
+    my $openquote = '';
+
+    my %actions = (
+
+        Read => sub {
+            given (my $c = shift) {
+                when ('<') {
+                    $state = "WaitTagName";
+                }
+                default {
+                    $curhash -> {data} .= $c;
+                }
+            }
+        },
+
+        WaitTagName => sub {
+            given (my $c = shift) {
+                when (' ') {
+                    return;
+                }
+                when ('/') {
+                    $state = 'Exit';
+                }
+                default {
+                    my $newhash = {
+                        name => "",
+                        backref => $curhash,
+                        refs => [],
+                        data => "",
+                        attrs => {}
+                    };
+                    push($curhash -> {refs}, $newhash);
+                    $curhash = $newhash;
+                    $curhash -> {name} .= $c;
+                    $state = "ReadTagName";
+                }
+            }
+        },
+
+        ReadTagName => sub {
+            given (my $c = shift) {
+                when (' ') {
+                    $state = "WaitAttrName";
+                    $tmpname = "";
+                }
+                when ('>') {
+                    $state = "Read";
+                }
+                default {
+                    $curhash -> {name} .= $c;
+                }
+            }
+        },
+
+        WaitAttrName => sub {
+            given (my $c = shift) {
+                when (' ') {
+                    return;
+                }
+                when ('>') {
+                    $state = "Read";
+                }
+                default {
+                    $tmpname = $c;
+                    $state = "ReadAttrName";
+                }
+            }
+        },
+
+        ReadAttrName => sub {
+            given (my $c = shift) {
+                when (' ') {
+                    return;
+                }
+                when ('=') {
+                    $curhash -> {attrs} -> {$tmpname} = undef;
+                    $state = "WaitValue";
+                }
+                default {
+                    $tmpname .= $c;
+                }
+            }
+        },
+
+        WaitValue => sub {
+            given (my $c = shift) {
+                when (' ') {
+                    return;
+                }
+                when ("'") {
+                    $state = "ReadValue";
+                    $openquote = "'";
+                    $tmpval = "";
+                }
+                when ('"') {
+                    $state = "ReadValue";
+                    $openquote = '"';
+                    $tmpval = "";
+                }
+            }
+        },
+
+        ReadValue => sub {
+            given (my $c = shift) {
+                when ($openquote) {
+                    $curhash -> {attrs} -> {$tmpname} = $tmpval;
+                    $tmpval = "";
+                    $state = "WaitAttrName";
+                }
+                default {
+                    $tmpval .= $c;
+                }
+            }
+        },
+
+        Exit => sub {
+            given (my $c = shift) {
+                when (' ') {
+                    return;
+                }
+                when ('>') {
+                    $curhash = $curhash -> {"backref"};
+                    $state = "Read";
+                }
+                default {
+                    return;
+                }
+            }
+        }
+    );
+
+    while (+@_)
+    {
+        my $line = shift;
+        chomp($line);
+        $line = trim($line);
+        for (split(//, $line))
+        {
+            &{$actions{$state}}($_);
+        }
+    }
+
+    return $curhash;
 }
 
 0x179;

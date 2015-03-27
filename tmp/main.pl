@@ -2,15 +2,10 @@ use strict;
 use warnings;
 use feature 'say';
 
-sub calc
+package A;
+my $t = 1;
 {
-    my $e = join('', split(' ', shift));
-    chomp($e);
-    my $w = $e;
-    say $w;
-    $w = $w + 3;
-    say $w;
-    return $w;
+    $t = 2;
+    say $t;
 }
-
-say calc(scalar(<stdin>));
+say $t;

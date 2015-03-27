@@ -1,10 +1,14 @@
-<journal>
-<title lal = "1">Very Useful Journal</title>
-<contacts>
-    <address>sdsds</address>
-    <tel>8-3232-121212</tel>
-    <tel>8-3232-121212</tel>
-    <email>j@j.ru</email>
-<url>www.j.ru</url>
-</contacts>
-</journal>  
+<note>
+    <to>Tove</to>
+    <from>Jani</from>
+    <heading>Reminder</heading>
+    <body>Don't forget me this weekend!</body>
+</note>
+###exit###
+<note>
+    <to>Tove</to>
+    <from>Jani</from>
+    <heading>Reminder</heading>
+    <body>Don't forget me this weekend!</body>
+</note>
+
