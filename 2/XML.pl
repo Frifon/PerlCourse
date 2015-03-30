@@ -24,19 +24,22 @@ sub trim
 # refs: array of scalars
 # data: scalar
 # attrs: hash
+# comment: scalar
 
 my $curhash = {
     name => "",
     backref => undef,
     refs => [],
     data => "",
-    attrs => {}
+    attrs => {},
+    comment => ""
 };
 
 my $state = "Read";
 my $tmpname = "";
 my $tmpval = "";
 my $openquote = '';
+my @last_chars = ();
 
 my %actions = (
 
@@ -52,7 +55,14 @@ my %actions = (
     },
 
     WaitTagName => sub {
-        given (my $c = shift) {
+        my $c = shift;
+        if ($c eq '!')
+        {
+            $curhash -> {comment} .= '<';
+            $state = "ReadComment";
+            return;
+        }
+        given ($c) {
             when (' ') {
                 return;
             }
@@ -164,6 +174,14 @@ my %actions = (
                 return;
             }
         }
+    },
+
+    ReadComment => sub {
+        my $c = shift;
+        $curhash -> {comment} .= $c;
+        if ($c eq '>' and $last_chars[4] eq '-' and $last_chars[3] eq '-') {
+            $state = "Read";
+        }
     }
 );
 
@@ -174,10 +192,11 @@ for my $line (@lines)
     chomp($line);
     last if ($line eq '###exit###');
     $line = trim($line);
-    say '!', $line, 'qwe';
     for (split(//, $line))
     {
         &{$actions{$state}}($_);
+        push @last_chars, $_;
+        shift @last_chars if +@last_chars > 5;
     }
 }
 
