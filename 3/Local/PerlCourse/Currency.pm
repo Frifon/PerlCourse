@@ -44,6 +44,8 @@ sub make_function
 {
     my ($name, $from, $to) = @_;
     our %currency;
+    my $func_name = "::main::$name\_$to";
+    $name = "::main::$name";
 
     if (!exists($currency{$from}) or !exists($currency{$to}))
     {
@@ -56,11 +58,9 @@ sub make_function
         die "Bad call. [$name]$/Function doesn't exist.$/"
     }
 
-    my $func_name = "::main::$name\_$to";
-    
     no strict 'refs';
     *$func_name = sub {
-        my $val = $name -> ();
+        my $val = $name -> (@_);
         return +$val / $currency{"$from"} * $currency{"$to"};
     };
     use strict 'refs';
@@ -74,8 +74,5 @@ sub generate_functions
         make_function(@$ref);
     }
 }
-
-sub price {5};
-sub sum {42};
 
 0x179;

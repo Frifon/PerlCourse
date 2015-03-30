@@ -9,13 +9,14 @@ use Local::PerlCourse::Currency qw(
 use warnings 'qw';
 use feature 'say';
 
-
+sub price {5};
+sub sum {42};
 
 # say Local::PerlCourse::Currency::usd_to_rure(2);
-say Local::PerlCourse::Currency::usd_to_rur(3);
-say Local::PerlCourse::Currency::eur_to_rur(4);
-say Local::PerlCourse::Currency::eur_to_eur(5);
-say Local::PerlCourse::Currency::usd_to_eur(6);
+# say Local::PerlCourse::Currency::usd_to_rur(3);
+# say Local::PerlCourse::Currency::eur_to_rur(4);
+# say Local::PerlCourse::Currency::eur_to_eur(5);
+# say Local::PerlCourse::Currency::usd_to_eur(6);
 # say Local::PerlCourse::Currency::eur_to_lalka(6);
 Local::PerlCourse::Currency::generate_functions(
     ['sum', rur => 'usd'],

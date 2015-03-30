@@ -1,1 +1,1 @@
-$all = 0; $big = 0; while (<>) {$all++; @arr = split(" "); if (@arr[4] > 1024 * 1024) {$big++; print "name: @arr[8] size: @arr[4]\n";}} print "files: $all\n> then 1M: $big\n"
+ls -l | perl -lna -e 'BEGIN{$all = 0; $big = 0;} $all++; if ($F[4] > 1024 * 1024) {$big++; print "name: $F[8] size: $F[4]";}}{ print "files: $all\ngreater then 1M: $big"'
