@@ -1,10 +1,16 @@
 <note>
-    <to>Tove</to>
-    <from>Jani</from>
-    <!--<heading><!-- 123 ->Reminder</heading>-->
-    <body>Don't forget me this weekend!</body>
+    <to>To<i>ve</to>xx</i>
 </note>
 ###exit###
+
+
+<!--1 lol qweadsasd as dsdf 
+asdasd
+as
+da
+sd
+-->
+
 <note>
     <to>Tove</to>
     <from>Jani</from>
@@ -12,3 +18,13 @@
     <body>Don't forget me this weekend!</body>
 </note>
 
+<jmynal>
+<title qweqwe = "1">Very Useful Jmynal</title>
+<contacts>
+    <address>sdsds</address>
+    <tel>8-3232-121212</tel>
+    <tel>8-3232-121212</tel>
+    <email>j@j.ru</email>
+<url>www.j.ru</url>
+</contacts>
+</jmynal>  

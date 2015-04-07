@@ -1,11 +1,8 @@
-use strict;
 use warnings;
+use strict;
 use feature 'say';
 
-package A;
-my $t = 1;
-{
-    $t = 2;
-    say $t;
-}
-say $t;
+my $a = pack('CA*', (length("Test"), "Test"));
+say $a;
+# my $b = unpack($a);
+# say $b;

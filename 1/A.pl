@@ -1,1 +1,1 @@
-ls -l | perl -lna -e 'BEGIN{$all = 0; $big = 0;} $all++; if ($F[4] > 1024 * 1024) {$big++; print "name: $F[8] size: $F[4]";}}{ print "files: $all\ngreater then 1M: $big"'
+ls -l | perl -lna -e 'BEGIN{$big = 0;} if ($F[4] > 1024 * 1024) {$big++; print "name: $F[8] size: $F[4]";}}$.--;{ print "files: $.\ngreater then 1Mb: $big"'

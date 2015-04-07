@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-# use bigint; WTF?!?!?!?!?!? 1.1 -> NaN O_\\
+# use bigint; #WTF?!?!?!?!?!? 1.1 -> NaN O_\\
 use feature 'say';
 
 sub calc
@@ -21,7 +21,7 @@ sub calc
         }
         $index++;
     }
-    return $result = $last == 0 ? calc(substr($expression, 1, length($expression) - 2)) : $result;
+    return $result = $last == 0 ? calc(substr($expression, 1, length($expression) - 2)) : $ result;
 }
 
-say calc(scalar(<stdin>));
+say calc(scalar(<STDIN>));

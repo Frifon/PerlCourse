@@ -1,0 +1,135 @@
+$VAR1 = {
+          'attrs' => {},
+          'comment' => '<1 lol qweadsasd as dsdf asdasdasdasd-->',
+          'refs' => [
+                      {
+                        'attrs' => {},
+                        'comment' => '<--<heading><!-- 123 ->Reminder</heading>-->',
+                        'refs' => [
+                                    {
+                                      'attrs' => {},
+                                      'refs' => [],
+                                      'name' => 'to',
+                                      'data' => 'Tove',
+                                      'backref' => $VAR1->{'refs'}[0]
+                                    },
+                                    {
+                                      'attrs' => {},
+                                      'refs' => [],
+                                      'name' => 'from',
+                                      'data' => 'Jani',
+                                      'backref' => $VAR1->{'refs'}[0]
+                                    },
+                                    {
+                                      'attrs' => {},
+                                      'refs' => [],
+                                      'name' => 'body',
+                                      'data' => 'Don\'t forget me this weekend!',
+                                      'backref' => $VAR1->{'refs'}[0]
+                                    }
+                                  ],
+                        'name' => 'note',
+                        'data' => '',
+                        'backref' => $VAR1
+                      },
+                      {
+                        'attrs' => {},
+                        'refs' => [
+                                    {
+                                      'attrs' => {},
+                                      'refs' => [],
+                                      'name' => 'to',
+                                      'data' => 'Tove',
+                                      'backref' => $VAR1->{'refs'}[1]
+                                    },
+                                    {
+                                      'attrs' => {},
+                                      'refs' => [],
+                                      'name' => 'from',
+                                      'data' => 'Jani',
+                                      'backref' => $VAR1->{'refs'}[1]
+                                    },
+                                    {
+                                      'attrs' => {},
+                                      'refs' => [],
+                                      'name' => 'heading',
+                                      'data' => 'Reminder',
+                                      'backref' => $VAR1->{'refs'}[1]
+                                    },
+                                    {
+                                      'attrs' => {},
+                                      'refs' => [],
+                                      'name' => 'body',
+                                      'data' => 'Don\'t forget me this weekend!',
+                                      'backref' => $VAR1->{'refs'}[1]
+                                    }
+                                  ],
+                        'name' => 'note',
+                        'data' => '',
+                        'backref' => $VAR1
+                      },
+                      {
+                        'attrs' => {},
+                        'refs' => [
+                                    {
+                                      'attrs' => {
+                                                   'qweqwe' => '1'
+                                                 },
+                                      'refs' => [],
+                                      'name' => 'title',
+                                      'data' => 'Very Useful Jmynal',
+                                      'backref' => $VAR1->{'refs'}[2]
+                                    },
+                                    {
+                                      'attrs' => {},
+                                      'refs' => [
+                                                  {
+                                                    'attrs' => {},
+                                                    'refs' => [],
+                                                    'name' => 'address',
+                                                    'data' => 'sdsds',
+                                                    'backref' => $VAR1->{'refs'}[2]{'refs'}[1]
+                                                  },
+                                                  {
+                                                    'attrs' => {},
+                                                    'refs' => [],
+                                                    'name' => 'tel',
+                                                    'data' => '8-3232-121212',
+                                                    'backref' => $VAR1->{'refs'}[2]{'refs'}[1]
+                                                  },
+                                                  {
+                                                    'attrs' => {},
+                                                    'refs' => [],
+                                                    'name' => 'tel',
+                                                    'data' => '8-3232-121212',
+                                                    'backref' => $VAR1->{'refs'}[2]{'refs'}[1]
+                                                  },
+                                                  {
+                                                    'attrs' => {},
+                                                    'refs' => [],
+                                                    'name' => 'email',
+                                                    'data' => 'j@j.ru',
+                                                    'backref' => $VAR1->{'refs'}[2]{'refs'}[1]
+                                                  },
+                                                  {
+                                                    'attrs' => {},
+                                                    'refs' => [],
+                                                    'name' => 'url',
+                                                    'data' => 'www.j.ru',
+                                                    'backref' => $VAR1->{'refs'}[2]{'refs'}[1]
+                                                  }
+                                                ],
+                                      'name' => 'contacts',
+                                      'data' => '',
+                                      'backref' => $VAR1->{'refs'}[2]
+                                    }
+                                  ],
+                        'name' => 'jmynal',
+                        'data' => '',
+                        'backref' => $VAR1
+                      }
+                    ],
+          'name' => '',
+          'data' => '  ',
+          'backref' => undef
+        };

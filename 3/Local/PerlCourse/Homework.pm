@@ -6,18 +6,6 @@ use Exporter 'import';
 use feature "switch";
 our @EXPORT_OK = qw(homework2_calc homework2_poland homework2_xml);
 
-sub balanced
-{
-    my $balance = 0;
-    for (split //, shift)
-    {
-        $balance++ if ($_ eq '(');
-        $balance-- if ($_ eq ')');
-        return 0 if ($balance < 0);
-    }
-    return $balance == 0;
-}
-
 sub homework2_calc
 {
     chomp(my $expression = join('', split(' ', shift)));
@@ -93,13 +81,15 @@ sub homework2_xml
         backref => undef,
         refs => [],
         data => "",
-        attrs => {}
+        attrs => {},
+        comment => ""
     };
 
     my $state = "Read";
     my $tmpname = "";
     my $tmpval = "";
     my $openquote = '';
+    my @last_chars = ();
 
     my %actions = (
 
@@ -115,7 +105,14 @@ sub homework2_xml
         },
 
         WaitTagName => sub {
-            given (my $c = shift) {
+            my $c = shift;
+            if ($c eq '!')
+            {
+                $curhash -> {comment} .= '<';
+                $state = "ReadComment";
+                return;
+            }
+            given ($c) {
                 when (' ') {
                     return;
                 }
@@ -227,20 +224,31 @@ sub homework2_xml
                     return;
                 }
             }
+        },
+
+        ReadComment => sub {
+            my $c = shift;
+            $curhash -> {comment} .= $c;
+            if ($c eq '>' and $last_chars[4] eq '-' and $last_chars[3] eq '-') {
+                $state = "Read";
+            }
         }
     );
 
-    while (+@_)
+    my @lines = @_;
+
+    for my $line (@lines)
     {
-        my $line = shift;
         chomp($line);
+        last if ($line eq '###exit###');
         $line = trim($line);
         for (split(//, $line))
         {
             &{$actions{$state}}($_);
+            push @last_chars, $_;
+            shift @last_chars if +@last_chars > 5;
         }
     }
-
     return $curhash;
 }
 

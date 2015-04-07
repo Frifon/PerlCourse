@@ -1,25 +1,27 @@
 package Local::PerlCourse::Currency;
 
-use strict;
+# use strict;
 use warnings;
 use feature 'say';
 
 sub import
 {
-    our %currency = map {join('', split(',', $_))} grep {!($_ eq '=>')} @_[1 .. +@_ - 1];
+    my ($package) = caller;
+    *{"$package".'::currency'} = {map {join('', split(',', $_))} grep {!($_ eq '=>')} @_[1 .. @_ - 1]};
 }
 
 sub AUTOLOAD
 {
+    my $value = shift;
     our $AUTOLOAD;
-    our %currency;
+    my ($package) = caller;
+    our %currency = %{*{"$package".'::currency'}};
     my @func = split('::', $AUTOLOAD);
-    if (scalar(@func) == 4 and check_name($func[scalar(@func) - 1]) and scalar(@_))
+    if (scalar(@func) == 4 and check_name($func[scalar(@func) - 1]) and defined $value)
     {
         my @values = split('_', $func[scalar(@func) - 1]);
         my $from = $currency{$values[0]};
         my $to = $currency{$values[2]};
-        my $value = shift;
         return $value / $from * $to;
     }
     else
@@ -31,7 +33,8 @@ sub AUTOLOAD
 
 sub check_name
 {
-    our %currency;
+    my ($package) = caller;
+    our %currency = %{*{"$package".'::currency'}};
     my $name = shift;
     my @values = split('_', $name);
     return (scalar(@values) == 3 
@@ -42,8 +45,13 @@ sub check_name
 
 sub make_function
 {
+    if (+@_ != 3)
+    {
+        die 'Bad call. Number of arguments is '.+@_;
+    }
     my ($name, $from, $to) = @_;
-    our %currency;
+    my ($package) = caller;
+    our %currency = %{*{"$package".'::currency'}};
     my $func_name = "::main::$name\_$to";
     $name = "::main::$name";
 
@@ -59,20 +67,17 @@ sub make_function
     }
 
     no strict 'refs';
+
     *$func_name = sub {
         my $val = $name -> (@_);
-        return +$val / $currency{"$from"} * $currency{"$to"};
+        return int($val) / $currency{"$from"} * $currency{"$to"};
     };
     use strict 'refs';
 }
 
 sub generate_functions
 {
-    while (+@_)
-    {
-        my $ref = shift;
-        make_function(@$ref);
-    }
+    make_function(@$_) for (@_);
 }
 
 0x179;
