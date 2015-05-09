@@ -14,7 +14,7 @@ use open ':std', ':encoding(UTF-8)';
 #     'http://ok.ru/goodfood'
 # );
 my $topic = Local::OK::Topic->new (
-    'http://ok.ru/goodfood/topic/66791673176064/'
+    'http://ok.ru/gruppa/topic/62556611955604'
 );
 
 

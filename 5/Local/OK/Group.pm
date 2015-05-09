@@ -11,9 +11,8 @@
 # $group->url; OK
 
 package Local::OK::Group;
-require LWP::UserAgent;
+use base qw(Local::Mixin::Downloadable);
 use Mojo::DOM;
-use feature 'say';
 
 sub new
 {
@@ -21,32 +20,24 @@ sub new
     my %data = (
         url => $link
     );
-    my $ua = LWP::UserAgent->new;
-    $ua->timeout(10);
-    $ua->env_proxy;
-    my $response = $ua->get($link);
-    if ($response->is_success)
-    {
-        $data{content} = $response->decoded_content;
-        my $dom = Mojo::DOM->new($data{content});
-        $dom->find('div')->map(attr => 'data-log-click')->each(
-            sub {
-                if ((my $ind = index($_, 'owners')) != -1)
-                {
-                    my $openbr = index($_, '[', $ind);
-                    my $closebr = index($_, ']', $ind);
-                    $data{id} = substr($_, $openbr + 1, $closebr - $openbr - 1);
-                    last;
-                }
+
+
+    $data{content} = Local::Mixin::Downloadable->download($link);
+    my $dom = Mojo::DOM->new($data{content});
+    $dom->find('div')->map(attr => 'data-log-click')->each(
+        sub {
+            if ((my $ind = index($_, 'owners')) != -1)
+            {
+                my $openbr = index($_, '[', $ind);
+                my $closebr = index($_, ']', $ind);
+                $data{id} = substr($_, $openbr + 1, $closebr - $openbr - 1);
+                last;
             }
-        );
-        chomp(my $name = shift([split(' : ', $dom->find("title")->[0]->content)]));
-        $data{name} = $name;
-    }
-    else
-    {
-        die $response->status_line;
-    }
+        }
+    );
+    chomp(my $name = shift([split(' : ', $dom->find("title")->[0]->content)]));
+    $data{name} = $name;
+
     return bless \%data, $class;
 }
 

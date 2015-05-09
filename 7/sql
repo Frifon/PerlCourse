@@ -1,0 +1,78 @@
+DROP DATABASE `perl`;
+
+CREATE DATABASE `perl`;
+GRANT ALL ON `perl`.* TO `root`;
+use `perl`;
+
+-- ---
+-- Table 'student'
+--
+-- ---
+
+DROP TABLE IF EXISTS `student`;
+
+CREATE TABLE `student` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `name` VARCHAR(256) NOT NULL DEFAULT 'NULL',
+  `class_id` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'class'
+--
+-- ---
+
+DROP TABLE IF EXISTS `class`;
+
+CREATE TABLE `class` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `name` VARCHAR(256) NOT NULL DEFAULT 'NULL',
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'subject'
+--
+-- ---
+
+DROP TABLE IF EXISTS `subject`;
+
+CREATE TABLE `subject` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `name` VARCHAR(256) NOT NULL DEFAULT 'NULL',
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'grade'
+--
+-- ---
+
+DROP TABLE IF EXISTS `grade`;
+
+CREATE TABLE `grade` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `grade` INTEGER NOT NULL,
+  `time` DATETIME NOT NULL,
+  `student_id` INTEGER NULL DEFAULT NULL,
+  `subject_id` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys
+-- ---
+
+ALTER TABLE `student` ADD FOREIGN KEY (class_id) REFERENCES `class` (`id`);
+ALTER TABLE `grade` ADD FOREIGN KEY (student_id) REFERENCES `student` (`id`);
+ALTER TABLE `grade` ADD FOREIGN KEY (subject_id) REFERENCES `subject` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+ALTER TABLE `student` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+ALTER TABLE `class` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+ALTER TABLE `subject` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+ALTER TABLE `grade` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;

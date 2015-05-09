@@ -1,0 +1,1 @@
+ perl -MDBIx::Class::Schema::Loader=make_schema_at,dump_to_dir:./ -e 'make_schema_at("Local::Schema", { debug => 1 }, [ "dbi:mysql:dbname=perl","root", "" ])'

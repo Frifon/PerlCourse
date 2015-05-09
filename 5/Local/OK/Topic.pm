@@ -5,10 +5,9 @@
 # $topic->group; OK
 
 package Local::OK::Topic;
-require LWP::UserAgent;
+use base qw(Local::Mixin::Downloadable);
 use Local::OK::Group;
 use Mojo::DOM;
-use feature 'say';
 
 sub new
 {
@@ -29,20 +28,10 @@ sub new
         $data{id} = substr($link, $start, length($link) - $start);
     }
 
-    my $ua = LWP::UserAgent->new;
-    $ua->timeout(10);
-    $ua->env_proxy;
-    my $response = $ua->get($link);
-    if ($response->is_success)
-    {
-        $data{content} = $response->decoded_content;
-        my $dom = Mojo::DOM->new($data{content});
-        $data{text} = $dom->find('div.media-text_cnt_tx')->[0]->content;
-    }
-    else
-    {
-        die $response->status_line;
-    }
+    $data{content} = Local::Mixin::Downloadable->download($link);
+    my $dom = Mojo::DOM->new($data{content});
+    $data{text} = $dom->find('div.media-text_cnt_tx')->[0]->content;
+
     return bless \%data, $class;
 }
 
