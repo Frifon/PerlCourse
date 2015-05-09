@@ -10,7 +10,7 @@ sub search_best_student
 {
     my ($self) = @_;
     my $best = undef;
-    for my $group ($self->search)
+    for my $group ($self->search({}, {prefetch => 'students'}))
     {
         for my $student ($group->students)
         {

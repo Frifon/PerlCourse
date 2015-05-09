@@ -2,7 +2,7 @@
 # OK 1. while (fetch)
 # OK 2. selectall
 # OK 3. search + join
-# 4. search + prefetch
+# OK 4. search + prefetch
 # OK 5. result-method
 # OK 6. resultset-method
 # OK 7. create
@@ -192,7 +192,7 @@ else
     # say get_best_student_by_class_name($_students, '310')->name();
 
 
-    # 6.
+    # 6. 4.
     # my $good = $_classes->search_best_student();
     # say $good->name(), ' ', $good->gpa(), ' ', $good->class->name;
 
