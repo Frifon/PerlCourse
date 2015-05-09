@@ -1,0 +1,17 @@
+<form action="/edit" method='post' style="text-align:center;width:300px;">
+  <div class="form-group">
+    <label for="login">Login</label>
+    <input type="text" class="form-control" id="login" name="login" placeholder="Enter login" value=[% session.login %]>
+  </div>
+
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+  </div>
+
+  <div class="form-group">
+    <label for="avatar">Password</label>
+    <input type="text" class="form-control" id="avatar" name="avatar" placeholder="avatar_url" value=[% session.src %]>
+  </div>
+  <button type="submit" class="btn btn-default">Изменить</button>
+</form>

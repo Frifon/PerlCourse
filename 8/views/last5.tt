@@ -1,0 +1,11 @@
+[% IF users %]
+    <div style="text-align:center">
+    <h1>[% users.size %] users</h1>
+    [% FOREACH user IN users %]
+        <img src="[% user.src %]" width=300px>
+        <br>
+        <h3>[% user.login %]</h3>
+        <br>
+    [% END %]
+    </div>
+[% END %]

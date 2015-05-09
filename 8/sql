@@ -1,0 +1,51 @@
+DROP DATABASE `web`;
+
+CREATE DATABASE `web`;
+GRANT ALL ON `web`.* TO `root`;
+use `web`;
+
+
+
+
+
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'user'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `user`;
+        
+CREATE TABLE `user` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `login` VARCHAR(256) NULL DEFAULT NULL,
+  `password` VARCHAR(256) NULL DEFAULT NULL,
+  `avatar` VARCHAR(256) NULL DEFAULT NULL,
+  `reg_time` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `user` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `user` (`id`,`login`,`password`,`avatar`,`reg_time`) VALUES
+-- ('','','','','');
+
