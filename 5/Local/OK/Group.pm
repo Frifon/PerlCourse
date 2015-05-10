@@ -35,7 +35,33 @@ sub new
             }
         }
     );
-    chomp(my $name = shift([split(' : ', $dom->find("title")->[0]->content)]));
+    my $tmp = $dom->find('span[class=mctc_name_holder textWrap]')->[0]->content;
+    my $dom_for_name = Mojo::DOM->new($tmp);
+    my $name = $dom_for_name->content;
+    if ($dom_for_name->at('div'))
+    {
+        my ($new_name, $start, $len) = ("", index($name, $dom_for_name->at('div')), length($dom_for_name->at('div')));
+        for my $i (0 .. length($name) - 1)
+        {
+            if ($i < $start or $i >= $start + $len)
+            {
+                $new_name .= substr($name, $i, 1);
+            }
+        }
+        $name = $new_name;
+    }
+    if ($dom_for_name->at('span'))
+    {
+        my ($new_name, $start, $len) = ("", index($name, $dom_for_name->at('span')), length($dom_for_name->at('span')));
+        for my $i (0 .. length($name) - 1)
+        {
+            if ($i < $start or $i >= $start + $len)
+            {
+                $new_name .= substr($name, $i, 1);
+            }
+        }
+        $name = $new_name;
+    }
     $data{name} = $name;
 
     return bless \%data, $class;
