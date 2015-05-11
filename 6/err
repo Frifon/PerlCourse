@@ -1,0 +1,919 @@
+    Parse::RecDescent: Treating "OP :" as a rule declaration
+    Parse::RecDescent: Treating "m([-+*\/%])" as an m/../ pattern terminal
+    Parse::RecDescent: Treating "ABS_NUMBER :" as a rule declaration
+    Parse::RecDescent: Treating "/[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?/" as a
+                       /../ pattern terminal
+    Parse::RecDescent: Treating "UNARY_SIGN :" as a rule declaration
+    Parse::RecDescent: Treating "/[+-]/" as a /../ pattern terminal
+    Parse::RecDescent: Treating "MUL_DIV :" as a rule declaration
+    Parse::RecDescent: Treating "/[\*\/]/" as a /../ pattern terminal
+    Parse::RecDescent: Treating "NUMBER :" as a rule declaration
+    Parse::RecDescent: Treating "UNARY_SIGN" as a subrule match
+    Parse::RecDescent: Treating "NUMBER" as a subrule match
+    Parse::RecDescent: Treating "{ @item = main::decode(@item); shift @item;
+                       $item[1] *= -1 if ($item[0] eq '-'); $return =
+                       main::encode(1 * $item[1]); }" as an action
+    Parse::RecDescent: Treating "|" as a new production
+    Parse::RecDescent: Treating "ABS_NUMBER" as a subrule match
+    Parse::RecDescent: Treating "{ $return = main::encode($item[1]); }" as an
+                       action
+    Parse::RecDescent: Treating "SUMMARY :" as a rule declaration
+    Parse::RecDescent: Treating "FACTOR" as a subrule match
+    Parse::RecDescent: Treating "UNARY_SIGN" as a subrule match
+    Parse::RecDescent: Treating "SUMMARY" as a subrule match
+    Parse::RecDescent: Treating "{ # print ::Dumper(\@item); @item =
+                       main::decode(@item); $return = ""; for (@{$item[1]}) {
+                       @{$_} = main::decode(@{$_}); $return .=
+                       '('.@{$_}[1].')'.@{$_}[2]; } $return .=
+                       '('.@item[2].')'; # print $return.$/; $return =
+                       main::encode(eval($return)); }" as an action
+    Parse::RecDescent: Treating "|" as a new production
+    Parse::RecDescent: Treating "FACTOR" as a subrule match
+    Parse::RecDescent: Treating "PRODUCT :" as a rule declaration
+    Parse::RecDescent: Treating "( POW MUL_DIV {\@item} )" as an implicit
+                       subrule
+    Parse::RecDescent: Treating
+                       "_alternation_1_of_production_1_of_rule_PRODUCT :" as a
+                       rule declaration
+    Parse::RecDescent: Treating "POW" as a subrule match
+    Parse::RecDescent: Treating "MUL_DIV" as a subrule match
+    Parse::RecDescent: Treating "{\@item}" as an action
+    Parse::RecDescent: Treating
+                       "_alternation_1_of_production_1_of_rule_PRODUCT(s?)" as
+                       a zero-or-more subrule match
+    Parse::RecDescent: Treating "POW" as a subrule match
+    Parse::RecDescent: Treating "{ # print ::Dumper(\@item); @item =
+                       main::decode(@item); $return = ""; for (@{$item[1]}) {
+                       @{$_} = main::decode(@{$_}); $return .=
+                       '('.@{$_}[1].')'.@{$_}[2]; } $return .=
+                       '('.@item[2].')'; # print $return.$/; $return =
+                       main::encode(eval($return)); }" as an action
+    Parse::RecDescent: Treating "POW :" as a rule declaration
+    Parse::RecDescent: Treating "( FACTOR '^' {\@item} )" as an implicit
+                       subrule
+    Parse::RecDescent: Treating "_alternation_1_of_production_1_of_rule_POW :"
+                       as a rule declaration
+    Parse::RecDescent: Treating "FACTOR" as a subrule match
+    Parse::RecDescent: Treating "^" as a literal terminal
+    Parse::RecDescent: Treating "{\@item}" as an action
+    Parse::RecDescent: Treating
+                       "_alternation_1_of_production_1_of_rule_POW(s?)" as a
+                       zero-or-more subrule match
+    Parse::RecDescent: Treating "FACTOR" as a subrule match
+    Parse::RecDescent: Treating "{ # print ::Dumper(\@item); @item =
+                       main::decode(@item); $return = ""; for (@{$item[1]}) {
+                       @{$_} = main::decode(@{$_}); $return .=
+                       '('.@{$_}[1].')'.'**'; } $return .= '('.@item[2].')'; #
+                       print $return.$/; $return =
+                       main::encode(eval($return)); }" as an action
+    Parse::RecDescent: Treating "FACTOR :" as a rule declaration
+    Parse::RecDescent: Treating "UNARY_SIGN" as a subrule match
+    Parse::RecDescent: Treating "/\(/" as a /../ pattern terminal
+    Parse::RecDescent: Treating "SUMMARY" as a subrule match
+    Parse::RecDescent: Treating "/\)/" as a /../ pattern terminal
+    Parse::RecDescent: Treating "{ # # # # print $_.$/ for (@item); @item =
+                       main::decode(@item); # # # # print $_.$/ for (@item);
+                       if ($item[1] eq '-') { $item[3] *= -1; } $return =
+                       main::encode($item[3]); }" as an action
+    Parse::RecDescent: Treating "|" as a new production
+    Parse::RecDescent: Treating "/\(/" as a /../ pattern terminal
+    Parse::RecDescent: Treating "SUMMARY" as a subrule match
+    Parse::RecDescent: Treating "/\)/" as a /../ pattern terminal
+    Parse::RecDescent: Treating "{ # # # # print $_.$/ for (@item); @item =
+                       main::decode(@item); # # # # print $_.$/ for (@item);
+                       $return = main::encode($item[2]); }" as an action
+    Parse::RecDescent: Treating "|" as a new production
+    Parse::RecDescent: Treating "NUMBER" as a subrule match
+    Parse::RecDescent: Treating "startrule :" as a rule declaration
+    Parse::RecDescent: Treating "SUMMARY" as a subrule match
+printing code (86131) to RD_TRACE
+ 1|startrule |Trying rule: [startrule]              |
+ 1|startrule |                                      |"((1))"
+ 1|startrule |Trying production: [SUMMARY]          |
+ 1|startrule |Trying subrule: [SUMMARY]             |
+ 2| SUMMARY  |Trying rule: [SUMMARY]                |
+ 2| SUMMARY  |Trying production: [FACTOR UNARY_SIGN |
+  |          |SUMMARY]                              |
+ 2| SUMMARY  |                                      |
+ 2| SUMMARY  |Trying subrule: [FACTOR]              |
+ 3|  FACTOR  |Trying rule: [FACTOR]                 |
+ 3|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 4|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 4|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 4|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 4|UNARY_SIGN|<<Didn't match terminal>>             |
+ 4|UNARY_SIGN|<<Didn't match rule>>                 |
+ 3|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 3|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 3|  FACTOR  |Trying terminal: [/\(/]               |
+ 3|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[(])                                  |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |                                      |"(1))"
+ 3|  FACTOR  |Trying subrule: [SUMMARY]             |
+ 4| SUMMARY  |Trying rule: [SUMMARY]                |
+ 4| SUMMARY  |Trying production: [FACTOR UNARY_SIGN |
+  |          |SUMMARY]                              |
+ 4| SUMMARY  |                                      |
+ 4| SUMMARY  |Trying subrule: [FACTOR]              |
+ 5|  FACTOR  |Trying rule: [FACTOR]                 |
+ 5|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 6|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 6|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 6|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 6|UNARY_SIGN|<<Didn't match terminal>>             |
+ 6|UNARY_SIGN|<<Didn't match rule>>                 |
+ 5|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 5|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 5|  FACTOR  |Trying terminal: [/\(/]               |
+ 5|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[(])                                  |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |                                      |"1))"
+ 5|  FACTOR  |Trying subrule: [SUMMARY]             |
+ 6| SUMMARY  |Trying rule: [SUMMARY]                |
+ 6| SUMMARY  |Trying production: [FACTOR UNARY_SIGN |
+  |          |SUMMARY]                              |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |Trying subrule: [FACTOR]              |
+ 7|  FACTOR  |Trying rule: [FACTOR]                 |
+ 7|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 8|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 8|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 8|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 8|UNARY_SIGN|<<Didn't match terminal>>             |
+ 8|UNARY_SIGN|<<Didn't match rule>>                 |
+ 7|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 7|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 7|  FACTOR  |Trying terminal: [/\(/]               |
+ 7|  FACTOR  |<<Didn't match terminal>>             |
+ 7|  FACTOR  |Trying production: [NUMBER]           |
+ 7|  FACTOR  |Trying subrule: [NUMBER]              |
+ 8|  NUMBER  |Trying rule: [NUMBER]                 |
+ 8|  NUMBER  |Trying production: [UNARY_SIGN NUMBER]|
+ 8|  NUMBER  |Trying subrule: [UNARY_SIGN]          |
+ 9|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 9|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 9|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 9|UNARY_SIGN|<<Didn't match terminal>>             |
+ 9|UNARY_SIGN|<<Didn't match rule>>                 |
+ 8|  NUMBER  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 8|  NUMBER  |Trying production: [ABS_NUMBER]       |
+ 8|  NUMBER  |Trying subrule: [ABS_NUMBER]          |
+ 9|ABS_NUMBER|Trying rule: [ABS_NUMBER]             |
+ 9|ABS_NUMBER|Trying production: [/[0-9]*\.?[0-     |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|Trying terminal: [/[0-9]*\.?[0-       |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched terminal<< (return value:   |
+  |          |[1])                                  |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|                                      |"))"
+ 9|ABS_NUMBER|>>Matched production: [/[0-9]*\.?[0-  |
+  |          |9]+([eE][-+]?[0-9]+)?/]<<             |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched rule<< (return value: [1])  |
+ 9|ABS_NUMBER|(consumed: [1])                       |
+ 8|  NUMBER  |>>Matched subrule: [ABS_NUMBER]<<     |
+  |          |(return value: [1]                    |
+ 8|  NUMBER  |                                      |
+ 8|  NUMBER  |Trying action                         |
+ 8|  NUMBER  |>>Matched action<< (return value: [1])|
+ 8|  NUMBER  |>>Matched production: [ABS_NUMBER]<<  |
+ 8|  NUMBER  |>>Matched rule<< (return value: [1])  |
+ 8|  NUMBER  |(consumed: [1])                       |
+ 7|  FACTOR  |>>Matched subrule: [NUMBER]<< (return |
+  |          |value: [1]                            |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |>>Matched production: [NUMBER]<<      |
+ 7|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 7|  FACTOR  |(consumed: [1])                       |
+ 6| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |Trying subrule: [UNARY_SIGN]          |
+ 7|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 7|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 7|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 7|UNARY_SIGN|<<Didn't match terminal>>             |
+ 7|UNARY_SIGN|<<Didn't match rule>>                 |
+ 6| SUMMARY  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 6| SUMMARY  |Trying production: [FACTOR]           |
+ 6| SUMMARY  |                                      |"1))"
+ 6| SUMMARY  |Trying subrule: [FACTOR]              |
+ 7|  FACTOR  |Trying rule: [FACTOR]                 |
+ 7|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 8|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 8|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 8|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 8|UNARY_SIGN|<<Didn't match terminal>>             |
+ 8|UNARY_SIGN|<<Didn't match rule>>                 |
+ 7|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 7|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 7|  FACTOR  |Trying terminal: [/\(/]               |
+ 7|  FACTOR  |<<Didn't match terminal>>             |
+ 7|  FACTOR  |Trying production: [NUMBER]           |
+ 7|  FACTOR  |Trying subrule: [NUMBER]              |
+ 8|  NUMBER  |Trying rule: [NUMBER]                 |
+ 8|  NUMBER  |Trying production: [UNARY_SIGN NUMBER]|
+ 8|  NUMBER  |Trying subrule: [UNARY_SIGN]          |
+ 9|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 9|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 9|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 9|UNARY_SIGN|<<Didn't match terminal>>             |
+ 9|UNARY_SIGN|<<Didn't match rule>>                 |
+ 8|  NUMBER  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 8|  NUMBER  |Trying production: [ABS_NUMBER]       |
+ 8|  NUMBER  |Trying subrule: [ABS_NUMBER]          |
+ 9|ABS_NUMBER|Trying rule: [ABS_NUMBER]             |
+ 9|ABS_NUMBER|Trying production: [/[0-9]*\.?[0-     |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|Trying terminal: [/[0-9]*\.?[0-       |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched terminal<< (return value:   |
+  |          |[1])                                  |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|                                      |"))"
+ 9|ABS_NUMBER|>>Matched production: [/[0-9]*\.?[0-  |
+  |          |9]+([eE][-+]?[0-9]+)?/]<<             |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched rule<< (return value: [1])  |
+ 9|ABS_NUMBER|(consumed: [1])                       |
+ 8|  NUMBER  |>>Matched subrule: [ABS_NUMBER]<<     |
+  |          |(return value: [1]                    |
+ 8|  NUMBER  |                                      |
+ 8|  NUMBER  |Trying action                         |
+ 8|  NUMBER  |>>Matched action<< (return value: [1])|
+ 8|  NUMBER  |>>Matched production: [ABS_NUMBER]<<  |
+ 8|  NUMBER  |>>Matched rule<< (return value: [1])  |
+ 8|  NUMBER  |(consumed: [1])                       |
+ 7|  FACTOR  |>>Matched subrule: [NUMBER]<< (return |
+  |          |value: [1]                            |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |>>Matched production: [NUMBER]<<      |
+ 7|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 7|  FACTOR  |(consumed: [1])                       |
+ 6| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |>>Matched production: [FACTOR]<<      |
+ 6| SUMMARY  |>>Matched rule<< (return value: [1])  |
+ 6| SUMMARY  |(consumed: [1])                       |
+ 5|  FACTOR  |>>Matched subrule: [SUMMARY]<< (return|
+  |          |value: [1]                            |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |Trying terminal: [/\)/]               |
+ 5|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[)])                                  |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |                                      |")"
+ 5|  FACTOR  |Trying action                         |
+ 5|  FACTOR  |>>Matched action<< (return value: [1])|
+ 5|  FACTOR  |>>Matched production: [/\(/ SUMMARY   |
+  |          |/\)/]<<                               |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 5|  FACTOR  |(consumed: [(1)])                     |
+ 4| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 4| SUMMARY  |                                      |
+ 4| SUMMARY  |Trying subrule: [UNARY_SIGN]          |
+ 5|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 5|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 5|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 5|UNARY_SIGN|<<Didn't match terminal>>             |
+ 5|UNARY_SIGN|<<Didn't match rule>>                 |
+ 4| SUMMARY  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 4| SUMMARY  |Trying production: [FACTOR]           |
+ 4| SUMMARY  |                                      |"(1))"
+ 4| SUMMARY  |Trying subrule: [FACTOR]              |
+ 5|  FACTOR  |Trying rule: [FACTOR]                 |
+ 5|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 6|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 6|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 6|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 6|UNARY_SIGN|<<Didn't match terminal>>             |
+ 6|UNARY_SIGN|<<Didn't match rule>>                 |
+ 5|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 5|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 5|  FACTOR  |Trying terminal: [/\(/]               |
+ 5|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[(])                                  |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |                                      |"1))"
+ 5|  FACTOR  |Trying subrule: [SUMMARY]             |
+ 6| SUMMARY  |Trying rule: [SUMMARY]                |
+ 6| SUMMARY  |Trying production: [FACTOR UNARY_SIGN |
+  |          |SUMMARY]                              |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |Trying subrule: [FACTOR]              |
+ 7|  FACTOR  |Trying rule: [FACTOR]                 |
+ 7|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 8|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 8|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 8|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 8|UNARY_SIGN|<<Didn't match terminal>>             |
+ 8|UNARY_SIGN|<<Didn't match rule>>                 |
+ 7|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 7|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 7|  FACTOR  |Trying terminal: [/\(/]               |
+ 7|  FACTOR  |<<Didn't match terminal>>             |
+ 7|  FACTOR  |Trying production: [NUMBER]           |
+ 7|  FACTOR  |Trying subrule: [NUMBER]              |
+ 8|  NUMBER  |Trying rule: [NUMBER]                 |
+ 8|  NUMBER  |Trying production: [UNARY_SIGN NUMBER]|
+ 8|  NUMBER  |Trying subrule: [UNARY_SIGN]          |
+ 9|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 9|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 9|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 9|UNARY_SIGN|<<Didn't match terminal>>             |
+ 9|UNARY_SIGN|<<Didn't match rule>>                 |
+ 8|  NUMBER  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 8|  NUMBER  |Trying production: [ABS_NUMBER]       |
+ 8|  NUMBER  |Trying subrule: [ABS_NUMBER]          |
+ 9|ABS_NUMBER|Trying rule: [ABS_NUMBER]             |
+ 9|ABS_NUMBER|Trying production: [/[0-9]*\.?[0-     |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|Trying terminal: [/[0-9]*\.?[0-       |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched terminal<< (return value:   |
+  |          |[1])                                  |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|                                      |"))"
+ 9|ABS_NUMBER|>>Matched production: [/[0-9]*\.?[0-  |
+  |          |9]+([eE][-+]?[0-9]+)?/]<<             |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched rule<< (return value: [1])  |
+ 9|ABS_NUMBER|(consumed: [1])                       |
+ 8|  NUMBER  |>>Matched subrule: [ABS_NUMBER]<<     |
+  |          |(return value: [1]                    |
+ 8|  NUMBER  |                                      |
+ 8|  NUMBER  |Trying action                         |
+ 8|  NUMBER  |>>Matched action<< (return value: [1])|
+ 8|  NUMBER  |>>Matched production: [ABS_NUMBER]<<  |
+ 8|  NUMBER  |>>Matched rule<< (return value: [1])  |
+ 8|  NUMBER  |(consumed: [1])                       |
+ 7|  FACTOR  |>>Matched subrule: [NUMBER]<< (return |
+  |          |value: [1]                            |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |>>Matched production: [NUMBER]<<      |
+ 7|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 7|  FACTOR  |(consumed: [1])                       |
+ 6| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |Trying subrule: [UNARY_SIGN]          |
+ 7|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 7|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 7|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 7|UNARY_SIGN|<<Didn't match terminal>>             |
+ 7|UNARY_SIGN|<<Didn't match rule>>                 |
+ 6| SUMMARY  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 6| SUMMARY  |Trying production: [FACTOR]           |
+ 6| SUMMARY  |                                      |"1))"
+ 6| SUMMARY  |Trying subrule: [FACTOR]              |
+ 7|  FACTOR  |Trying rule: [FACTOR]                 |
+ 7|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 8|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 8|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 8|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 8|UNARY_SIGN|<<Didn't match terminal>>             |
+ 8|UNARY_SIGN|<<Didn't match rule>>                 |
+ 7|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 7|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 7|  FACTOR  |Trying terminal: [/\(/]               |
+ 7|  FACTOR  |<<Didn't match terminal>>             |
+ 7|  FACTOR  |Trying production: [NUMBER]           |
+ 7|  FACTOR  |Trying subrule: [NUMBER]              |
+ 8|  NUMBER  |Trying rule: [NUMBER]                 |
+ 8|  NUMBER  |Trying production: [UNARY_SIGN NUMBER]|
+ 8|  NUMBER  |Trying subrule: [UNARY_SIGN]          |
+ 9|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 9|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 9|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 9|UNARY_SIGN|<<Didn't match terminal>>             |
+ 9|UNARY_SIGN|<<Didn't match rule>>                 |
+ 8|  NUMBER  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 8|  NUMBER  |Trying production: [ABS_NUMBER]       |
+ 8|  NUMBER  |Trying subrule: [ABS_NUMBER]          |
+ 9|ABS_NUMBER|Trying rule: [ABS_NUMBER]             |
+ 9|ABS_NUMBER|Trying production: [/[0-9]*\.?[0-     |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|Trying terminal: [/[0-9]*\.?[0-       |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched terminal<< (return value:   |
+  |          |[1])                                  |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|                                      |"))"
+ 9|ABS_NUMBER|>>Matched production: [/[0-9]*\.?[0-  |
+  |          |9]+([eE][-+]?[0-9]+)?/]<<             |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched rule<< (return value: [1])  |
+ 9|ABS_NUMBER|(consumed: [1])                       |
+ 8|  NUMBER  |>>Matched subrule: [ABS_NUMBER]<<     |
+  |          |(return value: [1]                    |
+ 8|  NUMBER  |                                      |
+ 8|  NUMBER  |Trying action                         |
+ 8|  NUMBER  |>>Matched action<< (return value: [1])|
+ 8|  NUMBER  |>>Matched production: [ABS_NUMBER]<<  |
+ 8|  NUMBER  |>>Matched rule<< (return value: [1])  |
+ 8|  NUMBER  |(consumed: [1])                       |
+ 7|  FACTOR  |>>Matched subrule: [NUMBER]<< (return |
+  |          |value: [1]                            |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |>>Matched production: [NUMBER]<<      |
+ 7|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 7|  FACTOR  |(consumed: [1])                       |
+ 6| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |>>Matched production: [FACTOR]<<      |
+ 6| SUMMARY  |>>Matched rule<< (return value: [1])  |
+ 6| SUMMARY  |(consumed: [1])                       |
+ 5|  FACTOR  |>>Matched subrule: [SUMMARY]<< (return|
+  |          |value: [1]                            |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |Trying terminal: [/\)/]               |
+ 5|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[)])                                  |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |                                      |")"
+ 5|  FACTOR  |Trying action                         |
+ 5|  FACTOR  |>>Matched action<< (return value: [1])|
+ 5|  FACTOR  |>>Matched production: [/\(/ SUMMARY   |
+  |          |/\)/]<<                               |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 5|  FACTOR  |(consumed: [(1)])                     |
+ 4| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 4| SUMMARY  |                                      |
+ 4| SUMMARY  |>>Matched production: [FACTOR]<<      |
+ 4| SUMMARY  |>>Matched rule<< (return value: [1])  |
+ 4| SUMMARY  |(consumed: [(1)])                     |
+ 3|  FACTOR  |>>Matched subrule: [SUMMARY]<< (return|
+  |          |value: [1]                            |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |Trying terminal: [/\)/]               |
+ 3|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[)])                                  |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |Trying action                         |
+ 3|  FACTOR  |>>Matched action<< (return value: [1])|
+ 3|  FACTOR  |>>Matched production: [/\(/ SUMMARY   |
+  |          |/\)/]<<                               |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 3|  FACTOR  |(consumed: [])                        |
+ 2| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 2| SUMMARY  |                                      |
+ 2| SUMMARY  |Trying subrule: [UNARY_SIGN]          |
+ 3|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 3|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 3|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 3|UNARY_SIGN|<<Didn't match terminal>>             |
+ 3|UNARY_SIGN|<<Didn't match rule>>                 |
+ 2| SUMMARY  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 2| SUMMARY  |Trying production: [FACTOR]           |
+ 2| SUMMARY  |                                      |"((1))"
+ 2| SUMMARY  |Trying subrule: [FACTOR]              |
+ 3|  FACTOR  |Trying rule: [FACTOR]                 |
+ 3|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 4|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 4|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 4|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 4|UNARY_SIGN|<<Didn't match terminal>>             |
+ 4|UNARY_SIGN|<<Didn't match rule>>                 |
+ 3|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 3|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 3|  FACTOR  |Trying terminal: [/\(/]               |
+ 3|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[(])                                  |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |                                      |"(1))"
+ 3|  FACTOR  |Trying subrule: [SUMMARY]             |
+ 4| SUMMARY  |Trying rule: [SUMMARY]                |
+ 4| SUMMARY  |Trying production: [FACTOR UNARY_SIGN |
+  |          |SUMMARY]                              |
+ 4| SUMMARY  |                                      |
+ 4| SUMMARY  |Trying subrule: [FACTOR]              |
+ 5|  FACTOR  |Trying rule: [FACTOR]                 |
+ 5|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 6|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 6|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 6|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 6|UNARY_SIGN|<<Didn't match terminal>>             |
+ 6|UNARY_SIGN|<<Didn't match rule>>                 |
+ 5|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 5|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 5|  FACTOR  |Trying terminal: [/\(/]               |
+ 5|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[(])                                  |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |                                      |"1))"
+ 5|  FACTOR  |Trying subrule: [SUMMARY]             |
+ 6| SUMMARY  |Trying rule: [SUMMARY]                |
+ 6| SUMMARY  |Trying production: [FACTOR UNARY_SIGN |
+  |          |SUMMARY]                              |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |Trying subrule: [FACTOR]              |
+ 7|  FACTOR  |Trying rule: [FACTOR]                 |
+ 7|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 8|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 8|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 8|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 8|UNARY_SIGN|<<Didn't match terminal>>             |
+ 8|UNARY_SIGN|<<Didn't match rule>>                 |
+ 7|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 7|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 7|  FACTOR  |Trying terminal: [/\(/]               |
+ 7|  FACTOR  |<<Didn't match terminal>>             |
+ 7|  FACTOR  |Trying production: [NUMBER]           |
+ 7|  FACTOR  |Trying subrule: [NUMBER]              |
+ 8|  NUMBER  |Trying rule: [NUMBER]                 |
+ 8|  NUMBER  |Trying production: [UNARY_SIGN NUMBER]|
+ 8|  NUMBER  |Trying subrule: [UNARY_SIGN]          |
+ 9|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 9|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 9|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 9|UNARY_SIGN|<<Didn't match terminal>>             |
+ 9|UNARY_SIGN|<<Didn't match rule>>                 |
+ 8|  NUMBER  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 8|  NUMBER  |Trying production: [ABS_NUMBER]       |
+ 8|  NUMBER  |Trying subrule: [ABS_NUMBER]          |
+ 9|ABS_NUMBER|Trying rule: [ABS_NUMBER]             |
+ 9|ABS_NUMBER|Trying production: [/[0-9]*\.?[0-     |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|Trying terminal: [/[0-9]*\.?[0-       |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched terminal<< (return value:   |
+  |          |[1])                                  |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|                                      |"))"
+ 9|ABS_NUMBER|>>Matched production: [/[0-9]*\.?[0-  |
+  |          |9]+([eE][-+]?[0-9]+)?/]<<             |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched rule<< (return value: [1])  |
+ 9|ABS_NUMBER|(consumed: [1])                       |
+ 8|  NUMBER  |>>Matched subrule: [ABS_NUMBER]<<     |
+  |          |(return value: [1]                    |
+ 8|  NUMBER  |                                      |
+ 8|  NUMBER  |Trying action                         |
+ 8|  NUMBER  |>>Matched action<< (return value: [1])|
+ 8|  NUMBER  |>>Matched production: [ABS_NUMBER]<<  |
+ 8|  NUMBER  |>>Matched rule<< (return value: [1])  |
+ 8|  NUMBER  |(consumed: [1])                       |
+ 7|  FACTOR  |>>Matched subrule: [NUMBER]<< (return |
+  |          |value: [1]                            |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |>>Matched production: [NUMBER]<<      |
+ 7|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 7|  FACTOR  |(consumed: [1])                       |
+ 6| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |Trying subrule: [UNARY_SIGN]          |
+ 7|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 7|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 7|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 7|UNARY_SIGN|<<Didn't match terminal>>             |
+ 7|UNARY_SIGN|<<Didn't match rule>>                 |
+ 6| SUMMARY  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 6| SUMMARY  |Trying production: [FACTOR]           |
+ 6| SUMMARY  |                                      |"1))"
+ 6| SUMMARY  |Trying subrule: [FACTOR]              |
+ 7|  FACTOR  |Trying rule: [FACTOR]                 |
+ 7|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 8|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 8|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 8|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 8|UNARY_SIGN|<<Didn't match terminal>>             |
+ 8|UNARY_SIGN|<<Didn't match rule>>                 |
+ 7|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 7|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 7|  FACTOR  |Trying terminal: [/\(/]               |
+ 7|  FACTOR  |<<Didn't match terminal>>             |
+ 7|  FACTOR  |Trying production: [NUMBER]           |
+ 7|  FACTOR  |Trying subrule: [NUMBER]              |
+ 8|  NUMBER  |Trying rule: [NUMBER]                 |
+ 8|  NUMBER  |Trying production: [UNARY_SIGN NUMBER]|
+ 8|  NUMBER  |Trying subrule: [UNARY_SIGN]          |
+ 9|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 9|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 9|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 9|UNARY_SIGN|<<Didn't match terminal>>             |
+ 9|UNARY_SIGN|<<Didn't match rule>>                 |
+ 8|  NUMBER  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 8|  NUMBER  |Trying production: [ABS_NUMBER]       |
+ 8|  NUMBER  |Trying subrule: [ABS_NUMBER]          |
+ 9|ABS_NUMBER|Trying rule: [ABS_NUMBER]             |
+ 9|ABS_NUMBER|Trying production: [/[0-9]*\.?[0-     |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|Trying terminal: [/[0-9]*\.?[0-       |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched terminal<< (return value:   |
+  |          |[1])                                  |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|                                      |"))"
+ 9|ABS_NUMBER|>>Matched production: [/[0-9]*\.?[0-  |
+  |          |9]+([eE][-+]?[0-9]+)?/]<<             |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched rule<< (return value: [1])  |
+ 9|ABS_NUMBER|(consumed: [1])                       |
+ 8|  NUMBER  |>>Matched subrule: [ABS_NUMBER]<<     |
+  |          |(return value: [1]                    |
+ 8|  NUMBER  |                                      |
+ 8|  NUMBER  |Trying action                         |
+ 8|  NUMBER  |>>Matched action<< (return value: [1])|
+ 8|  NUMBER  |>>Matched production: [ABS_NUMBER]<<  |
+ 8|  NUMBER  |>>Matched rule<< (return value: [1])  |
+ 8|  NUMBER  |(consumed: [1])                       |
+ 7|  FACTOR  |>>Matched subrule: [NUMBER]<< (return |
+  |          |value: [1]                            |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |>>Matched production: [NUMBER]<<      |
+ 7|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 7|  FACTOR  |(consumed: [1])                       |
+ 6| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |>>Matched production: [FACTOR]<<      |
+ 6| SUMMARY  |>>Matched rule<< (return value: [1])  |
+ 6| SUMMARY  |(consumed: [1])                       |
+ 5|  FACTOR  |>>Matched subrule: [SUMMARY]<< (return|
+  |          |value: [1]                            |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |Trying terminal: [/\)/]               |
+ 5|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[)])                                  |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |                                      |")"
+ 5|  FACTOR  |Trying action                         |
+ 5|  FACTOR  |>>Matched action<< (return value: [1])|
+ 5|  FACTOR  |>>Matched production: [/\(/ SUMMARY   |
+  |          |/\)/]<<                               |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 5|  FACTOR  |(consumed: [(1)])                     |
+ 4| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 4| SUMMARY  |                                      |
+ 4| SUMMARY  |Trying subrule: [UNARY_SIGN]          |
+ 5|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 5|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 5|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 5|UNARY_SIGN|<<Didn't match terminal>>             |
+ 5|UNARY_SIGN|<<Didn't match rule>>                 |
+ 4| SUMMARY  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 4| SUMMARY  |Trying production: [FACTOR]           |
+ 4| SUMMARY  |                                      |"(1))"
+ 4| SUMMARY  |Trying subrule: [FACTOR]              |
+ 5|  FACTOR  |Trying rule: [FACTOR]                 |
+ 5|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 6|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 6|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 6|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 6|UNARY_SIGN|<<Didn't match terminal>>             |
+ 6|UNARY_SIGN|<<Didn't match rule>>                 |
+ 5|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 5|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 5|  FACTOR  |Trying terminal: [/\(/]               |
+ 5|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[(])                                  |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |                                      |"1))"
+ 5|  FACTOR  |Trying subrule: [SUMMARY]             |
+ 6| SUMMARY  |Trying rule: [SUMMARY]                |
+ 6| SUMMARY  |Trying production: [FACTOR UNARY_SIGN |
+  |          |SUMMARY]                              |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |Trying subrule: [FACTOR]              |
+ 7|  FACTOR  |Trying rule: [FACTOR]                 |
+ 7|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 8|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 8|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 8|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 8|UNARY_SIGN|<<Didn't match terminal>>             |
+ 8|UNARY_SIGN|<<Didn't match rule>>                 |
+ 7|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 7|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 7|  FACTOR  |Trying terminal: [/\(/]               |
+ 7|  FACTOR  |<<Didn't match terminal>>             |
+ 7|  FACTOR  |Trying production: [NUMBER]           |
+ 7|  FACTOR  |Trying subrule: [NUMBER]              |
+ 8|  NUMBER  |Trying rule: [NUMBER]                 |
+ 8|  NUMBER  |Trying production: [UNARY_SIGN NUMBER]|
+ 8|  NUMBER  |Trying subrule: [UNARY_SIGN]          |
+ 9|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 9|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 9|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 9|UNARY_SIGN|<<Didn't match terminal>>             |
+ 9|UNARY_SIGN|<<Didn't match rule>>                 |
+ 8|  NUMBER  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 8|  NUMBER  |Trying production: [ABS_NUMBER]       |
+ 8|  NUMBER  |Trying subrule: [ABS_NUMBER]          |
+ 9|ABS_NUMBER|Trying rule: [ABS_NUMBER]             |
+ 9|ABS_NUMBER|Trying production: [/[0-9]*\.?[0-     |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|Trying terminal: [/[0-9]*\.?[0-       |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched terminal<< (return value:   |
+  |          |[1])                                  |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|                                      |"))"
+ 9|ABS_NUMBER|>>Matched production: [/[0-9]*\.?[0-  |
+  |          |9]+([eE][-+]?[0-9]+)?/]<<             |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched rule<< (return value: [1])  |
+ 9|ABS_NUMBER|(consumed: [1])                       |
+ 8|  NUMBER  |>>Matched subrule: [ABS_NUMBER]<<     |
+  |          |(return value: [1]                    |
+ 8|  NUMBER  |                                      |
+ 8|  NUMBER  |Trying action                         |
+ 8|  NUMBER  |>>Matched action<< (return value: [1])|
+ 8|  NUMBER  |>>Matched production: [ABS_NUMBER]<<  |
+ 8|  NUMBER  |>>Matched rule<< (return value: [1])  |
+ 8|  NUMBER  |(consumed: [1])                       |
+ 7|  FACTOR  |>>Matched subrule: [NUMBER]<< (return |
+  |          |value: [1]                            |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |>>Matched production: [NUMBER]<<      |
+ 7|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 7|  FACTOR  |(consumed: [1])                       |
+ 6| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |Trying subrule: [UNARY_SIGN]          |
+ 7|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 7|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 7|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 7|UNARY_SIGN|<<Didn't match terminal>>             |
+ 7|UNARY_SIGN|<<Didn't match rule>>                 |
+ 6| SUMMARY  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 6| SUMMARY  |Trying production: [FACTOR]           |
+ 6| SUMMARY  |                                      |"1))"
+ 6| SUMMARY  |Trying subrule: [FACTOR]              |
+ 7|  FACTOR  |Trying rule: [FACTOR]                 |
+ 7|  FACTOR  |Trying production: [UNARY_SIGN /\(/   |
+  |          |SUMMARY /\)/]                         |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |Trying subrule: [UNARY_SIGN]          |
+ 8|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 8|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 8|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 8|UNARY_SIGN|<<Didn't match terminal>>             |
+ 8|UNARY_SIGN|<<Didn't match rule>>                 |
+ 7|  FACTOR  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 7|  FACTOR  |Trying production: [/\(/ SUMMARY /\)/]|
+ 7|  FACTOR  |Trying terminal: [/\(/]               |
+ 7|  FACTOR  |<<Didn't match terminal>>             |
+ 7|  FACTOR  |Trying production: [NUMBER]           |
+ 7|  FACTOR  |Trying subrule: [NUMBER]              |
+ 8|  NUMBER  |Trying rule: [NUMBER]                 |
+ 8|  NUMBER  |Trying production: [UNARY_SIGN NUMBER]|
+ 8|  NUMBER  |Trying subrule: [UNARY_SIGN]          |
+ 9|UNARY_SIGN|Trying rule: [UNARY_SIGN]             |
+ 9|UNARY_SIGN|Trying production: [/[+-]/]           |
+ 9|UNARY_SIGN|Trying terminal: [/[+-]/]             |
+ 9|UNARY_SIGN|<<Didn't match terminal>>             |
+ 9|UNARY_SIGN|<<Didn't match rule>>                 |
+ 8|  NUMBER  |<<Didn't match subrule: [UNARY_SIGN]>>|
+ 8|  NUMBER  |Trying production: [ABS_NUMBER]       |
+ 8|  NUMBER  |Trying subrule: [ABS_NUMBER]          |
+ 9|ABS_NUMBER|Trying rule: [ABS_NUMBER]             |
+ 9|ABS_NUMBER|Trying production: [/[0-9]*\.?[0-     |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|Trying terminal: [/[0-9]*\.?[0-       |
+  |          |9]+([eE][-+]?[0-9]+)?/]               |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched terminal<< (return value:   |
+  |          |[1])                                  |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|                                      |"))"
+ 9|ABS_NUMBER|>>Matched production: [/[0-9]*\.?[0-  |
+  |          |9]+([eE][-+]?[0-9]+)?/]<<             |
+ 9|ABS_NUMBER|                                      |
+ 9|ABS_NUMBER|>>Matched rule<< (return value: [1])  |
+ 9|ABS_NUMBER|(consumed: [1])                       |
+ 8|  NUMBER  |>>Matched subrule: [ABS_NUMBER]<<     |
+  |          |(return value: [1]                    |
+ 8|  NUMBER  |                                      |
+ 8|  NUMBER  |Trying action                         |
+ 8|  NUMBER  |>>Matched action<< (return value: [1])|
+ 8|  NUMBER  |>>Matched production: [ABS_NUMBER]<<  |
+ 8|  NUMBER  |>>Matched rule<< (return value: [1])  |
+ 8|  NUMBER  |(consumed: [1])                       |
+ 7|  FACTOR  |>>Matched subrule: [NUMBER]<< (return |
+  |          |value: [1]                            |
+ 7|  FACTOR  |                                      |
+ 7|  FACTOR  |>>Matched production: [NUMBER]<<      |
+ 7|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 7|  FACTOR  |(consumed: [1])                       |
+ 6| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 6| SUMMARY  |                                      |
+ 6| SUMMARY  |>>Matched production: [FACTOR]<<      |
+ 6| SUMMARY  |>>Matched rule<< (return value: [1])  |
+ 6| SUMMARY  |(consumed: [1])                       |
+ 5|  FACTOR  |>>Matched subrule: [SUMMARY]<< (return|
+  |          |value: [1]                            |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |Trying terminal: [/\)/]               |
+ 5|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[)])                                  |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |                                      |")"
+ 5|  FACTOR  |Trying action                         |
+ 5|  FACTOR  |>>Matched action<< (return value: [1])|
+ 5|  FACTOR  |>>Matched production: [/\(/ SUMMARY   |
+  |          |/\)/]<<                               |
+ 5|  FACTOR  |                                      |
+ 5|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 5|  FACTOR  |(consumed: [(1)])                     |
+ 4| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 4| SUMMARY  |                                      |
+ 4| SUMMARY  |>>Matched production: [FACTOR]<<      |
+ 4| SUMMARY  |>>Matched rule<< (return value: [1])  |
+ 4| SUMMARY  |(consumed: [(1)])                     |
+ 3|  FACTOR  |>>Matched subrule: [SUMMARY]<< (return|
+  |          |value: [1]                            |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |Trying terminal: [/\)/]               |
+ 3|  FACTOR  |>>Matched terminal<< (return value:   |
+  |          |[)])                                  |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |Trying action                         |
+ 3|  FACTOR  |>>Matched action<< (return value: [1])|
+ 3|  FACTOR  |>>Matched production: [/\(/ SUMMARY   |
+  |          |/\)/]<<                               |
+ 3|  FACTOR  |                                      |
+ 3|  FACTOR  |>>Matched rule<< (return value: [1])  |
+ 3|  FACTOR  |(consumed: [])                        |
+ 2| SUMMARY  |>>Matched subrule: [FACTOR]<< (return |
+  |          |value: [1]                            |
+ 2| SUMMARY  |                                      |
+ 2| SUMMARY  |>>Matched production: [FACTOR]<<      |
+ 2| SUMMARY  |>>Matched rule<< (return value: [1])  |
+ 2| SUMMARY  |(consumed: [])                        |
+ 1|startrule |>>Matched subrule: [SUMMARY]<< (return|
+  |          |value: [1]                            |
+ 1|startrule |                                      |
+ 1|startrule |>>Matched production: [SUMMARY]<<     |
+ 1|startrule |>>Matched rule<< (return value: [1])  |
+ 1|startrule |(consumed: [])                        |

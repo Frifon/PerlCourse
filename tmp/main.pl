@@ -1,3 +1,4 @@
+
  use strict;
  use Parse::RecDescent;
  use Data::Dumper;
@@ -20,19 +21,17 @@
    VARIABLE : /\w[a-z0-9_]*/i # Variable
 
    expression : INTEGER OP expression
-              { print 1;
-                return main::expression(@item) }
+              { return main::expression(@item) }
               | VARIABLE OP expression
-              { print 2; return main::expression(@item) }
+              { return main::expression(@item) }
               | INTEGER
-                {print 3;}
               | VARIABLE
-              { print 4; return $main::VARIABLE{$item{VARIABLE}} }
+              { return $main::VARIABLE{$item{VARIABLE}} }
 
    print_instruction  : /print/i expression
                       { print $item{expression}."\n" }
    assign_instruction : VARIABLE "=" expression
-                      { print 5; $main::VARIABLE{$item{VARIABLE}} = $item{expression} }
+                      { $main::VARIABLE{$item{VARIABLE}} = $item{expression} }
 
    instruction : print_instruction
                | assign_instruction
@@ -50,4 +49,5 @@ _EOGRAMMAR_
 
  my $parser = Parse::RecDescent->new($grammar);
 
- print "a=2\n";             $parser->startrule("a=2+2+2");
+my @res = $parser->startrule("a=1-2+3");
+print Dumper(\@res);
