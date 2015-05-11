@@ -1,11 +1,3 @@
-# OK brackets
-# OK unary
-# OK pow
-# OK multiplication
-# OK division
-# OK summary
-# OK substraction
-
 use warnings;
 use strict;
 
@@ -71,7 +63,7 @@ sub expression
     my $return = $item[1];
     for (@{$item[2]})
     {
-        @{$_} = main::decode(@{$_});
+        @{$_} = decode(@{$_});
         $return .= @{$_}[1].'('.@{$_}[2].')';
     }
     $return =~ s/\^/\*\*/g;
