@@ -1,0 +1,30 @@
+<xml>
+    <title location="aa">Jmynal</title>
+    <shelf location="room" lalka='crot'>
+        <book>
+            <name>one_name</name>
+            <!-- lol -->
+            <author>one_author</author>
+        </book>
+        <book>
+            <!--<name>two_name</name>-->
+            <author>two_author</author>
+        </book>
+    </shelf>
+    <note>
+        <to>Tove</to>
+        <to a='b' b="C">Jani</to>
+        <heading>Reminder</heading>
+        <to>Don't forget me this weekend!</to>
+    </note>
+    <jmynal>
+        <title location="1aa">Very Useful Jmynal</title>
+        <contacts>
+            <address>sdsds</address>
+            <tel>8-3232-121212</tel>
+            <tel lol="1">8-3232-121212</tel>
+            <email>j@j.ru</email>
+            <url>www.j.ru</url>
+        </contacts>
+    </jmynal>
+</xml>
