@@ -20,10 +20,7 @@ sub xml_parse
     my %result = ();
     my ($input, $attrs) = @_;
 
-    if (defined($attrs) and $attrs)
-    {
-        parse_attrs($attrs, \%result);
-    }
+    parse_attrs($attrs, \%result) if (defined($attrs) and $attrs);
 
     if ($input !~ /.*<.*/s)
     {
@@ -34,10 +31,7 @@ sub xml_parse
 
     $_ = $input;
     my @tmp;
-    while (/<\s*((?!XML)[a-z][\w0-9-]*)((\s+[a-z][\w0-9-]*\s*=\s*(["'])(.*?)\g4)*)\s*>(.*?)<\s*\/\s*\g1\s*>/gsi)
-    {
-        push @tmp, [$1, $2, $6];
-    }
+    push @tmp, [$1, $2, $6] while (/<\s*((?!XML)[a-z][\w0-9-]*)((\s+[a-z][\w0-9-]*\s*=\s*(["'])(.*?)\g4)*)\s*>(.*?)<\s*\/\s*\g1\s*>/gsi);
     for (@tmp)
     {
         my @arr = @{$_};
