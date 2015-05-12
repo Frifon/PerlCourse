@@ -19,11 +19,9 @@ sub calc
     my @results;
     for my $i (0 .. $N - 1)
     {
-        # say "$i\.dat";
         open(my $fh, '<', "$i\.dat");
         flock($fh, LOCK_EX);
         my @cards = split(' ', <$fh>);
-        # say join(' ', @cards);
         my %uniq;
         $uniq{$arr[$_]} = 0 for (0 .. 25);
         my $best = 'a';
@@ -37,8 +35,6 @@ sub calc
         }
         push @results, $best;
         push @results, $uniq{$best};
-        # say $best, ' ', $uniq{$best};
-        # say join(' ', @cards);
         close($fh);
     }
     my $s;
@@ -102,17 +98,13 @@ if ($fork_id != -1)
         if (flock($my_file, LOCK_EX))
         {
             alarm(0);
-            # say $fork_id, ' flocked his file';
             my $to = $fork_id;
             $to = int(rand($N)) while ($to == $fork_id);
-            # say $fork_id, ': to ', $to;
             open(my $to_file, '+<', "$to\.dat");
-            # say $fork_id, ': opened';
             alarm(rand(5) + 1);
             if (flock($to_file, LOCK_EX))
             {
                 alarm(0);
-                # say "fork $fork_id locked two files ($to)";
                 my @my_cards = split(' ', <$my_file>);
                 my @his_cards = split(' ', <$to_file>);
                 seek($my_file, 0, 0);
@@ -132,13 +124,7 @@ if ($fork_id != -1)
 
                 my $to_card = int(rand($K));
 
-                # say $fork_id, ': ', join(' ', @my_cards), ' : ', $min;
-                # say $fork_id, ': ', join(' ', @his_cards), ' : ', $to_card;
-
                 ($my_cards[$min], $his_cards[$to_card]) = ($his_cards[$to_card], $my_cards[$min]);
-
-                # say $fork_id, ': ', join(' ', @my_cards);
-                # say $fork_id, ': ', join(' ', @his_cards);
 
                 say $my_file join(' ', @my_cards);
                 say $to_file join(' ', @his_cards);
@@ -148,7 +134,6 @@ if ($fork_id != -1)
             }
             else
             {
-                # say $fork_id, ' couldn\'t flock to file';
                 close($to_file);
                 close($my_file);
                 alarm(0);
@@ -156,13 +141,11 @@ if ($fork_id != -1)
         }
         else
         {
-            # say $fork_id, ' couldn\'t flock his file';
             close($my_file);
             alarm(0);
         }
         alarm(0);
         my $sleep_time = rand(500) + 500;
-        # say "$fork_id sleep $sleep_time";
         usleep($sleep_time);
     }
     say "$fork_id died :-("
