@@ -2,11 +2,11 @@ use PerlIO::via::Numerator;
 use feature 'say';
 use Data::Dumper;
 
-$a = 0;
+$a = 1;
 
 if ($a)
 {
-    open(my $fh, ">:via(Numerator)", "foo.hex");;
+    open(my $fh, ">>:via(Numerator)", "foo.hex");;
     my $h = {
         a => 1,
         b => 2

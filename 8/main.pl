@@ -29,8 +29,12 @@ my $schema = Local::Schema->connect('dbi:mysql:web', "root", "", {mysql_enable_u
 
 sub ESCAPE
 {
-    return shift;
-    return escape_html(shift);
+    my $inp = shift || '';
+    return [map {ESCAPE($_)} @{$inp}] if (ref($inp) eq 'ARRAY');
+    say $inp;
+    $inp = escape_html($inp);
+    say $inp, $/;
+    return $inp;
 }
 
 sub users_rs
@@ -38,18 +42,16 @@ sub users_rs
     return $schema->resultset('User');
 }
 
-my $FLASH = "";
-
 sub get_flash
 {
-    my $msg = $FLASH;
-    $FLASH = '';
+    my $msg = session('FLASH');
+    session 'FLASH','';
     return $msg;
 }
 
 sub add_flash
 {
-    $FLASH .= ' '.shift;
+    session('FLASH', session('FLASH').' '.shift);
 }
 
 get '/profile' => sub {
@@ -69,7 +71,7 @@ get '/profile' => sub {
     }
 };
 
-get '/delete' => sub {
+post '/delete' => sub {
     if (session 'logged_in')
     {
         users_rs()->find({login => session('login')})->delete();
@@ -101,9 +103,9 @@ post '/edit' => sub {
     {
         return redirect '/';
     }
-    my $login = ESCAPE(param('login'));
-    my $password = ESCAPE(param('password'));
-    my $avatar = ESCAPE(param('avatar'));
+    my $login = param('login');
+    my $password = param('password');
+    my $avatar = param('avatar');
     if (!$login or !$password or !$avatar)
     {
         add_flash("Не все поля заполнены");
@@ -179,8 +181,8 @@ get '/login' => sub {
 };
 
 post '/login' => sub {
-    my $login = ESCAPE(param('login'));
-    my $password = ESCAPE(param('password'));
+    my $login = param('login');
+    my $password = param('password');
     if (!$login or !$password)
     {
         add_flash("Не все поля заполнены");
@@ -223,8 +225,8 @@ get '/reg' => sub {
 };
 
 post '/reg' => sub {
-    my $login = ESCAPE(param('login'));
-    my $password = ESCAPE(param('password'));
+    my $login = param('login');
+    my $password = param('password');
     if (!$login or !$password)
     {
         add_flash("Не все поля заполнены");

@@ -1,14 +1,25 @@
 package PerlIO::via::Numerator;
+use Data::Dumper;
+use DDP;
 
 my %indices;
 
 sub PUSHED
 {
     my ($class, $mode, $fh) = @_;
+    p $class;
     my $buf = '';
     my $obj = bless \$buf,$class;
     $indices{$obj} = 0;
-    return $obj;
+    return $obj, $mode;
+}
+
+sub OPEN
+{
+    # my ($self, $path, $mode, $fh) = @_;
+    print Dumper(\@_), $/;
+    # open (my $fh, $mode)
+    # return $self->SUPER::OPEN(@_);
 }
 
 sub FILL

@@ -117,15 +117,10 @@ sub grades_count
 {
     my ($self) = shift;
     my $grades = $self->grades();
-    my %result = (
-        1 => 0,
-        2 => 0,
-        3 => 0,
-        4 => 0,
-        5 => 0
-    );
+    my %result;
     while (my $grade = $grades->next())
     {
+        $result{$grade->grade()} //= 0;
         $result{$grade->grade()} += 1;
     }
     return %result;
@@ -137,7 +132,7 @@ sub gpa
     my %grades = $self->grades_count();
     my $count = 0;
     my $sum = 0;
-    for my $i (1 .. 5)
+    foreach my $i (keys %grades)
     {
         $sum += $grades{$i} * $i;
         $count += $grades{$i};

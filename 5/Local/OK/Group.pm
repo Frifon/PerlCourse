@@ -21,16 +21,23 @@ sub new
         url => $link
     );
 
+    my $obj = bless(\%data, $class);
+    $obj->init();
 
-    $data{content} = Local::Mixin::Downloadable->download($link);
-    my $dom = Mojo::DOM->new($data{content});
+    return $obj;
+}
+
+sub init {
+    my ($self) = @_;
+
+    my $dom = Mojo::DOM->new($self->content);
     $dom->find('div')->map(attr => 'data-log-click')->each(
         sub {
             if ((my $ind = index($_, 'owners')) != -1)
             {
                 my $openbr = index($_, '[', $ind);
                 my $closebr = index($_, ']', $ind);
-                $data{id} = substr($_, $openbr + 1, $closebr - $openbr - 1);
+                $self->{id} = substr($_, $openbr + 1, $closebr - $openbr - 1);
                 last;
             }
         }
@@ -62,7 +69,7 @@ sub new
         }
         $name = $new_name;
     }
-    $data{name} = $name;
+    $self->{name} = $name;
 
     return bless \%data, $class;
 }
@@ -77,12 +84,6 @@ sub name
 {
     my ($self) = @_;
     return $self->{name};
-}
-
-sub content
-{
-    my ($self) = @_;
-    return $self->{content};
 }
 
 sub url

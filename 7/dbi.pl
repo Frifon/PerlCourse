@@ -14,7 +14,7 @@ my $dbh = DBI->connect("DBI:mysql:database=perl;host=localhost;port=3306", 'root
 # $sth->finish();
 
 # 2.
-# $results = $dbh->selectall_hashref("SELECT * FROM grade RIGHT JOIN student ON grade.student_id = student.id WHERE grade = '5'", 'id');
+# $results = $dbh->selectall_hashref("SELECT * FROM grade JOIN student ON grade.student_id = student.id WHERE grade = '5'", 'id');
 # for my $id (keys %$results)
 # {
 #     say "$results->{$id}->{name} получил 5! УРА!";

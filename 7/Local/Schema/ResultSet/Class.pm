@@ -14,7 +14,7 @@ sub search_best_student
     {
         for my $student ($group->students)
         {
-            if (!(defined $best) or ($best->gpa() < $student->gpa()))
+            if (!(defined $best) || ($best->gpa() < $student->gpa()))
             {
                 $best = $student;
             }

@@ -11,26 +11,36 @@ use Mojo::DOM;
 
 sub new
 {
-    my ($class, $link) = @_;
-    my %data;
+    my ($class, $url) = @_;
+    my %data = (
+        url => $url
+    );
+    
+    my $obj =  bless \%data, $class;
+    $obj->init();
 
-    my $start = index($link, '/topic/');
+    return $obj;
+}
 
-    $data{group} = Local::OK::Group->new(substr($link, 0, $start + 1));
+sub init 
+{
+    my ($self) = @_;
+
+    my $start = index($self->url, '/topic/');
+    $self->{group} = Local::OK::Group->new(substr($self->url, 0, $start + 1));
 
     $start += length('/topic/');
-    if ((my $end = index($link, '/', $start)) != -1)
+    if ((my $end = index($self->url, '/', $start)) != -1)
     {
-        $data{id} = substr($link, $start, $end - $start);
+        $self->{id} = substr($self->url, $start, $end - $start);
     }
     else
     {
-        $data{id} = substr($link, $start, length($link) - $start);
+        $self->{id} = substr($self->url, $start, length($self->url) - $start);
     }
 
-    $data{content} = Local::Mixin::Downloadable->download($link);
-    my $dom = Mojo::DOM->new($data{content});
-    $data{text} = $dom->find('div.media-text_cnt_tx')->[0]->content;
+    my $dom = Mojo::DOM->new($self->content);
+    $self->{text} = $dom->find('div.media-text_cnt_tx')->[0]->content;
 
     return bless \%data, $class;
 }
@@ -47,16 +57,16 @@ sub text
     return $self->{text};
 }
 
-sub content
-{
-    my ($self) = @_;
-    return $self->{content};
-}
-
 sub group
 {
     my ($self) = @_;
     return $self->{group};
+}
+
+sub url
+{
+    my ($self) = @_;
+    return $self->{url};
 }
 
 1;

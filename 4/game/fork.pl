@@ -9,7 +9,7 @@ $SIG{ALRM} = sub {return 0};
 $SIG{CHLD} = 'IGNORE';
 
 my $N = 5;
-my $K = 101;
+my $K = $N;
 my $fork_id = -1;
 my @arr = ('a' .. 'z');
 my @pids;
@@ -95,7 +95,8 @@ if ($fork_id != -1)
     flock($fh, LOCK_EX);
     for (my $i = 0; $i < $K; $i++)
     {
-        print $fh $arr[int(rand(26))].' ';
+        # print $fh $arr[int(rand(26))].' ';
+        print $fh $arr[$i].' ';
     }
     close($fh);
 
@@ -160,7 +161,6 @@ if ($fork_id != -1)
             close($my_file);
             alarm(0);
         }
-        alarm(0);
         my $sleep_time = rand(500) + 500;
         usleep($sleep_time);
     }

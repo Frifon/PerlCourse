@@ -27,7 +27,7 @@
                         [% IF session.logged_in %]
                         <li><a href="/last5">Последние 5</a></li>
                         <li><a href="/profile">Профиль</a></li>
-                        <li><a href="/delete">Удалить себя</a></li>
+                        <li><form method=post action='/delete'><input type="submit" value="Удалить себя"></form></li>
                         <li><a href="/edit">Редактировать профиль</a></li>
                         <li><a href="/exit">Выйти</a></li>
                         [% ELSE %]

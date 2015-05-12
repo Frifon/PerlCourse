@@ -18,4 +18,15 @@ sub download
     }
 }
 
+sub content
+{
+    my ($self) = @_;
+
+    unless (defined $self->{content}) {
+        $self->{content} = $self->download($self->url);
+    }
+
+    return $self->{content};
+}
+
 1;
