@@ -3,18 +3,12 @@ use strict;
 use feature 'say';
 use Data::Dumper;
 
-my %a = ();
+my $a = 1;
+my $b = "abababa";
+$b =~ s/a/@{[do{$a++}]}/g;
+say $b;
 
-$a{a} = [1];
-
-if (exists($a{a}))
-{
-
-    push $a{a}, 1;
-}
-if (exists($a{a}))
-{
-    push $a{a}, 1;
-}
-
-say Dumper(\%a);
+say $a++;
+say "@{[do{$a++}]}";
+say "@{[do{$a++}]}";
+say "@{[do{$a++}]}";

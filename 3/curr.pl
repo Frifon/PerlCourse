@@ -1,5 +1,3 @@
-package Test1;
-
 use warnings;
 use strict;
 no warnings 'qw';

@@ -65,6 +65,6 @@ for my $line (@lines)
     $start .= $line;
 }
 
-$start =~ s/<!--.*-->//s;
+$start =~ s/<!--.*?-->//sg;
 my $href = xml_parse($start);
 say Dumper($href);

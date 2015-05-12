@@ -37,9 +37,11 @@ $VAR1 = {
                                    }
                       },
           'note' => {
-                      'body' => 'Don\'t forget me this weekend!',
-                      'to' => 'Tove',
-                      'from' => 'Jani',
+                      'to' => [
+                                'Tove',
+                                'Jani',
+                                'Don\'t forget me this weekend!'
+                              ],
                       'heading' => 'Reminder'
                     }
         };
