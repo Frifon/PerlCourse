@@ -6,69 +6,57 @@ use Fcntl qw(:flock);
 use feature 'say';
 
 $SIG{ALRM} = sub {return 0};
-$SIG{CHLD} = sub
-{
-    while (my $pid = waitpid(-1, WNOHANG))
-    {
-        last if $pid == -1;
-        if (WIFEXITED($?))
-        {
-            my $status = $? >> 8;
-            print "Process $pid exited with status $status$/";
-        }
-        else
-        {
-            print"Process $pid sleep$/";
-        } 
-    }
-};
-
-sub kill
-{
-    our @pids;
-    say "forks will die in 3";
-    sleep(1);
-    say "forks will die in 2";
-    sleep(1);
-    say "forks will die in 1";
-    sleep(1);
-    say 'killing';
-    set_command('exit');
-    for (@pids)
-    {
-        say "wait for $_";
-        waitpid($_, 0);
-        say "$_ is dead";
-    }
-    exit;
-}
-
-sub read_command
-{
-    open(my $fh, '<', 'commands');
-    my $line = <$fh> or return '';
-    chomp($line);
-    close($fh);
-    return $line;
-}
-
-sub set_command
-{
-    my $command = shift;
-    open(my $fh, '>', "commands");
-    flock($fh, LOCK_EX);
-    say $fh $command;
-    close($fh);
-}
+$SIG{CHLD} = 'IGNORE';
 
 my $N = 5;
 my $K = 100;
 my $fork_id = -1;
 my @arr = ('a' .. 'z');
-our @pids;
-set_command('');
+my @pids;
 
-say @arr;
+sub calc
+{
+    my @results;
+    for my $i (0 .. $N - 1)
+    {
+        # say "$i\.dat";
+        open(my $fh, '<', "$i\.dat");
+        flock($fh, LOCK_EX);
+        my @cards = split(' ', <$fh>);
+        # say join(' ', @cards);
+        my %uniq;
+        $uniq{$arr[$_]} = 0 for (0 .. 25);
+        my $best = 'a';
+        for (@cards)
+        {
+            $uniq{$_}++;
+            if ($uniq{$_} >= $uniq{$best})
+            {
+                $best = $_;
+            }
+        }
+        push @results, $best;
+        push @results, $uniq{$best};
+        # say $best, ' ', $uniq{$best};
+        # say join(' ', @cards);
+        close($fh);
+    }
+    my $s;
+    for my $i (0 .. $N - 1)
+    {
+        $s .= $i.': '.$results[$i * 2].' '.$results[$i * 2 + 1].$/;
+    }
+    say $s;
+}
+
+sub send_all
+{
+    my $sg = shift;
+    for (@pids)
+    {
+        kill $sg => $_;
+    }   
+}
 
 for (my $i = 0; $i < $N; $i++)
 {
@@ -76,7 +64,6 @@ for (my $i = 0; $i < $N; $i++)
     if (!$pid)
     {
         die 'Can\'t fork' unless defined $pid;
-        say 'new fork: '.$i;
         $fork_id = $i;
         last;
     }
@@ -96,12 +83,19 @@ if ($fork_id != -1)
         print $fh $arr[int(rand(26))].' ';
     }
     close($fh);
-    say "$fork_id is ready. waiting 5 sec";
-    sleep(5);
+
+    say "$fork_id is ready. waiting...";
+    my $end = 0;
+    local $SIG{HUP} = sub { $end = 1 - $end };
+    local $SIG{INT} = sub { $end = 2 };
+    sleep(1) while (!$end);
+    say "$fork_id starts working!";
+    
+
     while (1)
     {
-        my $command = read_command();
-        exit if ($command eq 'exit');
+        last if ($end == 2);
+        sleep(1) while (!$end);
 
         open(my $my_file, '+<', "$fork_id\.dat");
         alarm(rand(5) + 1);
@@ -171,46 +165,23 @@ if ($fork_id != -1)
         # say "$fork_id sleep $sleep_time";
         usleep($sleep_time);
     }
+    say "$fork_id died :-("
 }
 else
 {
-    say 'master is ready. waiting 5 sec';
-    sleep(5);
+    local $SIG{INT} = sub { calc(); exit(0); };
+    say 'Master is ready. Waiting 3 sec.';
+    sleep(3);
+    send_all('HUP');
     say join ' ', @pids, 'are ready';
+    sleep(2);
     while (1)
     {
+        send_all('HUP');
         say 'calculating...';
-        my @results;
-        for my $i (0 .. $N - 1)
-        {
-            # say "$i\.dat";
-            open(my $fh, '<', "$i\.dat");
-            flock($fh, LOCK_EX);
-            my @cards = split(' ', <$fh>);
-            # say join(' ', @cards);
-            my %uniq;
-            $uniq{$arr[$_]} = 0 for (0 .. 25);
-            my $best = 'a';
-            for (@cards)
-            {
-                $uniq{$_}++;
-                if ($uniq{$_} >= $uniq{$best})
-                {
-                    $best = $_;
-                }
-            }
-            push @results, $best;
-            push @results, $uniq{$best};
-            # say $best, ' ', $uniq{$best};
-            # say join(' ', @cards);
-            close($fh);
-        }
-        my $s;
-        for my $i (0 .. $N - 1)
-        {
-            $s .= $i.': '.$results[$i * 2].' '.$results[$i * 2 + 1].$/;
-        }
-        say $s;
-        sleep(10);
+        calc();
+        sleep(2);
+        send_all('HUP');
+        sleep(5);
     }
 }

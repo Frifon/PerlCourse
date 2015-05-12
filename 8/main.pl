@@ -27,6 +27,12 @@ set 'layout'       => 'main';
 
 my $schema = Local::Schema->connect('dbi:mysql:web', "root", "", {mysql_enable_utf8 => 1});
 
+sub ESCAPE
+{
+    return shift;
+    return escape_html(shift);
+}
+
 sub users_rs
 {
     return $schema->resultset('User');
@@ -52,8 +58,8 @@ get '/profile' => sub {
         my $me = users_rs()->find({login => session('login')});
         template('profile.tt', 
             {   
-                user => {login => escape_html($me->login), src => escape_html($me->avatar)},
-                msg => escape_html(get_flash()),
+                user => {login => ESCAPE($me->login), src => ESCAPE($me->avatar)},
+                msg => ESCAPE(get_flash()),
             }
         );
     }
@@ -80,7 +86,7 @@ get '/edit' => sub {
     {
         template('edit.tt', 
             {
-                msg => escape_html(get_flash()),
+                msg => ESCAPE(get_flash()),
             }
         );
     }
@@ -95,9 +101,9 @@ post '/edit' => sub {
     {
         return redirect '/';
     }
-    my $login = escape_html(param('login'));
-    my $password = escape_html(param('password'));
-    my $avatar = escape_html(param('avatar'));
+    my $login = ESCAPE(param('login'));
+    my $password = ESCAPE(param('password'));
+    my $avatar = ESCAPE(param('avatar'));
     if (!$login or !$password or !$avatar)
     {
         add_flash("Не все поля заполнены");
@@ -151,12 +157,12 @@ get 'last5' => sub {
     my $userstt = [];
     while (my $user = $users->next)
     {
-        push $userstt, {login => escape_html($user->login), src => escape_html($user->avatar)};
+        push $userstt, {login => ESCAPE($user->login), src => ESCAPE($user->avatar)};
     }
     template 'last5.tt',
     {
-        users => escape_html($userstt),
-        msg => escape_html(get_flash()),
+        users => ESCAPE($userstt),
+        msg => ESCAPE(get_flash()),
     }
 };
 
@@ -167,14 +173,14 @@ get '/login' => sub {
     }
     template("login.tt",
         {
-            msg => escape_html(get_flash()),   
+            msg => ESCAPE(get_flash()),   
         }
     );
 };
 
 post '/login' => sub {
-    my $login = escape_html(param('login'));
-    my $password = escape_html(param('password'));
+    my $login = ESCAPE(param('login'));
+    my $password = ESCAPE(param('password'));
     if (!$login or !$password)
     {
         add_flash("Не все поля заполнены");
@@ -211,14 +217,14 @@ get '/reg' => sub {
     }
     template("reg.tt",
         {
-            msg => escape_html(get_flash()),   
+            msg => ESCAPE(get_flash()),   
         }
     );
 };
 
 post '/reg' => sub {
-    my $login = escape_html(param('login'));
-    my $password = escape_html(param('password'));
+    my $login = ESCAPE(param('login'));
+    my $password = ESCAPE(param('password'));
     if (!$login or !$password)
     {
         add_flash("Не все поля заполнены");
