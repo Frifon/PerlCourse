@@ -9,13 +9,14 @@ $SIG{ALRM} = sub {return 0};
 $SIG{CHLD} = 'IGNORE';
 
 my $N = 5;
-my $K = 100;
+my $K = 101;
 my $fork_id = -1;
 my @arr = ('a' .. 'z');
 my @pids;
 
 sub calc
 {
+    my $win = shift;
     my @results;
     for my $i (0 .. $N - 1)
     {
@@ -43,6 +44,18 @@ sub calc
         $s .= $i.': '.$results[$i * 2].' '.$results[$i * 2 + 1].$/;
     }
     say $s;
+    if (defined $win)
+    {
+        my $best = 0;
+        for my $i (0 .. $N - 1)
+        {
+            if ($results[$i * 2 + 1] > $results[$best * 2 + 1])
+            {
+                $best = $i;
+            }
+        }
+        say "$/$/AND THE WINNER IS: $best! (".$results[$best * 2].' '.$results[$best * 2 + 1].")$/";
+    }
 }
 
 sub send_all
@@ -66,11 +79,17 @@ for (my $i = 0; $i < $N; $i++)
     else
     {
         push @pids, $pid;
+        open(my $my_file, '>', "$i\.dat");
+        close($my_file);
     }
 }
 
 if ($fork_id != -1)
 {
+    my $end = 0;
+    local $SIG{HUP} = sub { $end = 1 - $end };
+    local $SIG{INT} = sub { $end = 2 };
+    
     say $fork_id.' make new file ';
     open(my $fh, '>', "$fork_id\.dat");
     flock($fh, LOCK_EX);
@@ -81,9 +100,6 @@ if ($fork_id != -1)
     close($fh);
 
     say "$fork_id is ready. waiting...";
-    my $end = 0;
-    local $SIG{HUP} = sub { $end = 1 - $end };
-    local $SIG{INT} = sub { $end = 2 };
     sleep(1) while (!$end);
     say "$fork_id starts working!";
     
@@ -152,11 +168,21 @@ if ($fork_id != -1)
 }
 else
 {
-    local $SIG{INT} = sub { calc(); exit(0); };
-    say 'Master is ready. Waiting 3 sec.';
-    sleep(3);
-    send_all('HUP');
+    local $SIG{INT} = sub { calc(1); send_all('INT'); exit(0); };
+    say 'Master is ready.';
+    for (0 .. $N - 1)
+    {
+        my $filesize;
+        say "Testing $_...";
+        do
+        {
+            $filesize = -s "$_.dat";
+        } while ($filesize != $K * 2);
+        say "$_ is ready";
+    }
     say join ' ', @pids, 'are ready';
+    say "$/$/GO! GO! GO!";
+    send_all('HUP');
     sleep(2);
     while (1)
     {
