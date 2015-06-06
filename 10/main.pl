@@ -1,12 +1,15 @@
 use strict;
 use warnings;
 
+use Try::Tiny;
 use AnyEvent::HTTP;
 use Web::Query;
 use Data::Dumper;
 use feature 'say';
 
 my $HOME_DOMAIN;
+my $start_link = 'http://perldoc.perl.org/index.html';
+# my $start_link = 'http://en.cppreference.com/w/';
 
 sub get_domain
 {
@@ -23,8 +26,28 @@ sub get_domain
 sub make_good_link
 {
     my $link = shift;
+    if (index($link, '?') != -1)
+    {
+        $link = substr($link, 0, index($link, '?'));
+    }
+
     $link = substr($link, 0, length($link)) if ($link =~ /\/$/);
     return '' unless (get_domain($link) eq $HOME_DOMAIN);
+    return '' if (index($link, '#') != -1);
+
+    my @black_list = ('.pdf', '.tar.gz', '.js', '.css');
+    my $bad = 0;
+    for (@black_list)
+    {
+        if (length($_) <= length($link) && 
+            substr($link, length($link) - length($_), length($_)) eq $_)
+        {
+            $bad = 1;
+            last;
+        }
+    }
+    return '' if ($bad);
+
     return $link;
 }
 
@@ -40,22 +63,23 @@ sub build_link
     }
     return make_good_link($link) if ($link =~ /^http:\/\//);
     return make_good_link($link) if ($link =~ /^www./);
-
     return make_good_link('http://'.make_good_link(get_domain($base_link).'/'.$link));
 }
 
+
+
+
 my $exit_wait = AnyEvent->condvar;
 
-my %uniq;
-my $start_link = 'http://perldoc.perl.org/index.html';
+my %uniq = ('' => 0);
 $HOME_DOMAIN = get_domain($start_link);
 my @queue = ($start_link);
-$uniq{''} = 0;
-my $cnt = 0;
-my $sum_size = 0;
-my $requests = 0;
+my ($cnt, $sum_size, $requests, $skipped) = (0, 0, 0, 0);
 my @max_pages;
 push @max_pages, '' for (1 .. 10);
+
+
+
 
 my $w = AnyEvent->timer (after => 0.5, interval => 1, cb => sub {
     
@@ -63,7 +87,8 @@ my $w = AnyEvent->timer (after => 0.5, interval => 1, cb => sub {
     say 'Statistics';
     say "Uniq pages: $cnt";
     say "Summary size: $sum_size";
-    say "Requests: $requests";
+    say "Skipped pages: $skipped";
+    say "Pages in process: $requests";
     say 'Biggest pages:';
     my $max_len = 0;
     for (@max_pages)
@@ -78,11 +103,17 @@ my $w = AnyEvent->timer (after => 0.5, interval => 1, cb => sub {
 
     $exit_wait->send if (scalar(@queue) == 0 && $requests == 0);
 
+    my $queue_size = 0;
+
+    say "New events(", scalar(@queue), "):";
+
     while (scalar @queue)
     {
         my $link = shift @queue;
         
-        # say "New Event <$link>";
+        $queue_size++;
+        say "<$link>" if ($queue_size <= 15);
+        
         $requests++;
 
         my $request;
@@ -104,36 +135,47 @@ my $w = AnyEvent->timer (after => 0.5, interval => 1, cb => sub {
                     # say $hdr->{Status}, " is ok";
                     # say "Url is <$url>";
                     
-                    $cnt++;
-                    $sum_size += length($body);
-                    $uniq{$url} = length($body);
-
-                    push @max_pages, $url;
-                    @max_pages = sort {$uniq{$b} <=> $uniq{$a}} @max_pages;
-                    @max_pages = @max_pages[0 .. 9];
-                    
-                    
                     my $wq = wq($body);
 
-                    $wq->find('a')->each(sub {
-                        my $link = $_->attr('href');
-                        my $new_link = build_link($url, $link);
-                        if ($new_link =~ /.html$/)
-                        {
-                            unless (defined($uniq{$new_link}))
+                    try
+                    {
+                        $wq->find('a')->each(sub {
+                            my $link = $_->attr('href');
+                            my $new_link = build_link($url, $link);
+                            
+                            if (1)
                             {
-                             
-                                # say "New link found <$new_link>";
-                             
-                                $uniq{$new_link} = -1;
-                                push @queue, $new_link;
+                                unless (defined($uniq{$new_link}))
+                                {
+                                 
+                                    # say "New link found <$new_link>";
+                                 
+                                    $uniq{$new_link} = -1;
+                                    push @queue, $new_link;
+                                }
                             }
-                        }
-                    });
+                        });
+
+                        $cnt++;
+                        $sum_size += length($body);
+                        $uniq{$url} = length($body);
+
+                        push @max_pages, $url;
+                        @max_pages = sort {$uniq{$b} <=> $uniq{$a}} @max_pages;
+                        @max_pages = @max_pages[0 .. 9];
+                        
+
+                    }
+                    catch
+                    {
+                        warn "$url wasn't parsed$/";
+                        $skipped++;
+                    }
                 }
             }
         );
     }
+    say '' for (1 .. 15 - $queue_size);
 });
 
 $exit_wait->recv;
