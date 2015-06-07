@@ -1,0 +1,2 @@
+#!/bin/sh
+clang++ -o exec $1 `perl -MExtUtils::Embed -e ccopts -e ldopts`
