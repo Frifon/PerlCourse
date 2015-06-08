@@ -213,11 +213,11 @@ AUTOSPLITFILE = $(ABSPERLRUN)  -e 'use AutoSplit;  autosplit($$$$ARGV[0], $$$$AR
 
 # --- MakeMaker tool_xsubpp section:
 
-XSUBPPDIR = /opt/local/lib/perl5/5.16.3/ExtUtils
+XSUBPPDIR = /opt/local/lib/perl5/site_perl/5.16.3/ExtUtils
 XSUBPP = "$(XSUBPPDIR)$(DFSEP)xsubpp"
 XSUBPPRUN = $(PERLRUN) $(XSUBPP)
 XSPROTOARG = 
-XSUBPPDEPS = /opt/local/lib/perl5/5.16.3/ExtUtils/typemap /opt/local/lib/perl5/5.16.3/ExtUtils$(DFSEP)xsubpp
+XSUBPPDEPS = /opt/local/lib/perl5/5.16.3/ExtUtils/typemap /opt/local/lib/perl5/site_perl/5.16.3/ExtUtils$(DFSEP)xsubpp
 XSUBPPARGS = -typemap "/opt/local/lib/perl5/5.16.3/ExtUtils/typemap"
 XSUBPP_EXTRA_ARGS =
 

@@ -3,6 +3,8 @@ use warnings;
 
 use Math::Geom;
 use Data::Dumper;
+use Data::Compare;
+use Time::HiRes qw( time );
 use feature 'say';
 
 my %point = (
@@ -28,8 +30,69 @@ my $B = [
     [14, 15]
 ];
 
-say Math::Geom::distance_p2c(\%point, \%circle);
-say Math::Geom::circle_area(\%circle);
+my $C = [11, 22, 33, 44, 55, 66];
 
-say Dumper(Math::Geom::MMP($A, $B));
-Math::Geom::MMC($A);
+
+my $D = [
+    [10, 11, 1, 2],
+    [12],
+    [14, 15]
+];
+
+my @bigA;
+my @bigB;
+my $MAXN = 614;
+my $comp = 1;
+
+# 614
+# N     C     Perl  Status   Ratio
+# 1   21.30   62.32   OK     2.93
+# 2   22.69   63.40   OK     2.79
+# 3   21.94   61.80   OK     2.82
+# Result = 2.84
+
+for (1 .. $MAXN)
+{
+    my @tmp;
+    for (1 .. $MAXN)
+    {
+        push(@tmp, 1);
+    }
+    push(@bigA, \@tmp);
+}
+
+for (1 .. $MAXN)
+{
+    my @tmp;
+    for (1 .. $MAXN)
+    {
+        push(@tmp, 1);
+    }
+    push(@bigB, \@tmp);
+}
+
+# say Math::Geom::distance_p2c(\%point, \%circle);
+# say Math::Geom::circle_area(\%circle);
+
+my $start = time();
+my $res1 = Dumper(Math::Geom::MMC(\@bigA, \@bigB));
+my $end = time();
+printf("%.2f\n", $end - $start);
+
+$start = time();
+my $res2 = Dumper(Math::Geom::MMP(\@bigA, \@bigB));
+$end = time();
+printf("%.2f\n", $end - $start);
+
+
+if ($comp)
+{
+    if (Compare($res1, $res2))
+    {
+        say 'OK';
+    }
+    else
+    {
+        say 'NOT OK';
+    }
+}

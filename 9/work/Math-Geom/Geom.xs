@@ -27,20 +27,84 @@ int ** _MMC(int ** A, int n, int m)
     return A;
 }
 
-void test(int x)
-{
-    printf("%d\n", x);
-}
-
 MODULE = Math::Geom		PACKAGE = Math::Geom		
 
-void
-MMC(r_A)
+SV*
+MMC(r_A, r_B)
     SV *r_A
+    SV *r_B
     CODE:
-        SSize_t len = av_top_index((AV *)SvRV(r_A));
+        if(!(SvOK(r_A) && SvROK(r_A))) croak("First matrix isn't an arrayref!");
+        if(!(SvOK(r_B) && SvROK(r_B))) croak("Second matrix isn't an arrayref!");
 
+        SV *_A = SvRV(r_A);
+        SV *_B = SvRV(r_B);
 
+        if (SvTYPE(_A) != SVt_PVAV) croak("First matrix isn't an arrayref!");
+        if (SvTYPE(_B) != SVt_PVAV) croak("Second matrix isn't an arrayref!");
+
+        AV *A = (AV*)_A;
+        AV *B = (AV*)_B;
+
+        int rows_a = av_len(A) + 1;
+        int rows_b = av_len(B) + 1;
+        int cols_a = -1, cols_b = -1;
+
+        if (!rows_a || !rows_b) croak("Matrix can't be empty");
+
+        for (int i = 0; i < av_len(A) + 1; i++)
+        {
+            SV **r_row = av_fetch(A, i, 0);
+            if(!(SvOK(*r_row) && SvROK(*r_row))) croak("First matrix hasn't arrayhefs inside!");
+            SV *_row = SvRV(*r_row);
+            if (SvTYPE(_row) != SVt_PVAV) croak("First matrix hasn't arrayhefs inside!");
+            AV *row = (AV*)_row;
+            if (!i) cols_a = av_len(row);
+            else if (cols_a != av_len(row)) croak("Lengths of lines in first matrix aren't equal!");
+        }
+
+        for (int i = 0; i < av_len(B) + 1; i++)
+        {
+            SV **r_row = av_fetch(B, i, 0);
+            if(!(SvOK(*r_row) && SvROK(*r_row))) croak("First matrix hasn't arrayhefs inside!");
+            SV *_row = SvRV(*r_row);
+            if (SvTYPE(_row) != SVt_PVAV) croak("First matrix hasn't arrayhefs inside!");
+            AV *row = (AV*)_row;
+            if (!i) cols_b = av_len(row);
+            else if (cols_b != av_len(row)) croak("Lengths of lines in first matrix aren't equal!");
+        }
+
+        cols_a++; cols_b++;
+
+        if (cols_a != rows_b) croak("N x K ... K x M");
+
+        AV* result = (AV *)sv_2mortal((SV *)newAV());
+
+        for (int i = 0; i < rows_a; i++)
+        {
+            AV* tmp = (AV *)sv_2mortal((SV *)newAV());
+            for (int j = 0; j < cols_b; j++)
+            {
+                int cur = 0;
+                for (int t = 0; t < cols_a; t++)
+                {
+                    SV *el_A = (SV*)SvRV(*av_fetch((AV*)SvRV(*av_fetch(A, i, 0)), t, 0));
+                    SV *el_B = (SV*)SvRV(*av_fetch((AV*)SvRV(*av_fetch(B, t, 0)), j, 0));
+                    cur += (int)el_A * (int)el_B;
+                }
+                av_push(tmp, newSViv(cur));
+            }
+            av_push(result, newRV((SV *)tmp));
+        }
+
+        RETVAL = newRV((SV *)result);
+    OUTPUT:
+        RETVAL
+
+        
+
+        
+        
 
 
 double
