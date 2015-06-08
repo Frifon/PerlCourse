@@ -160,7 +160,7 @@ double
 circle_area(r_circle)
     SV *r_circle
     PPCODE:
-        double cx, cy, r;
+        double r;
         if(!(SvOK(r_circle) && SvROK(r_circle)))
         {
             croak("Circle have to be hashrefs!");
@@ -185,10 +185,7 @@ circle_area(r_circle)
         {
             croak ("One of the arguments is NULL");
         }
-
         
-        cx = SvNV(*_cx);
-        cy = SvNV(*_cy);
         r  = SvNV(*_r);
         
         PUSHs(sv_2mortal(newSVnv(M_PI * r * r)));

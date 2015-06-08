@@ -345,7 +345,7 @@ XS_EUPXS(XS_Math__Geom_circle_area)
 	double	RETVAL;
 	dXSTARG;
 #line 163 "Geom.xs"
-        double cx, cy, r;
+        double r;
         if(!(SvOK(r_circle) && SvROK(r_circle)))
         {
             croak("Circle have to be hashrefs!");
@@ -371,13 +371,10 @@ XS_EUPXS(XS_Math__Geom_circle_area)
             croak ("One of the arguments is NULL");
         }
 
-
-        cx = SvNV(*_cx);
-        cy = SvNV(*_cy);
         r  = SvNV(*_r);
 
         PUSHs(sv_2mortal(newSVnv(M_PI * r * r)));
-#line 381 "Geom.c"
+#line 378 "Geom.c"
 	PUTBACK;
 	return;
     }
