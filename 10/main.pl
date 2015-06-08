@@ -81,7 +81,7 @@ push @max_pages, '' for (1 .. 10);
 
 
 
-my $w = AnyEvent->timer (after => 0.5, interval => 1, cb => sub {
+my $w = AnyEvent->timer (after => 0.5, interval => 0.1, cb => sub {
     
     say '';
     say 'Statistics';

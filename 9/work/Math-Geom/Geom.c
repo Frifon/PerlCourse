@@ -211,7 +211,7 @@ XS_EUPXS(XS_Math__Geom_MMC)
 
         if (!rows_a || !rows_b) croak("Matrix can't be empty");
 
-        for (int i = 0; i < av_len(A) + 1; i++)
+        for (int i = 0; i < rows_a; i++)
         {
             SV **r_row = av_fetch(A, i, 0);
             if(!(SvOK(*r_row) && SvROK(*r_row))) croak("First matrix hasn't arrayhefs inside!");
@@ -222,7 +222,7 @@ XS_EUPXS(XS_Math__Geom_MMC)
             else if (cols_a != av_len(row)) croak("Lengths of lines in first matrix aren't equal!");
         }
 
-        for (int i = 0; i < av_len(B) + 1; i++)
+        for (int i = 0; i < rows_b; i++)
         {
             SV **r_row = av_fetch(B, i, 0);
             if(!(SvOK(*r_row) && SvROK(*r_row))) croak("First matrix hasn't arrayhefs inside!");
